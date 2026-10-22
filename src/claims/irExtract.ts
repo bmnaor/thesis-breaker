@@ -23,7 +23,7 @@ export function extractIssuerReleaseClaims(doc: FrozenDocument, drug: string, st
   // Dual-mechanism sentence, e.g. "dual inhibition of B-cell activating factor (BAFF) and interleukin-17A (IL-17A)"
   const mechMatch = text.match(/[^.\n]*dual (?:inhibition|blockade)[^.\n]*/i);
   if (mechMatch) {
-    const quote = mechMatch[0].replace(/^[*#\s]+/, "").trim();
+    const quote = mechMatch[0].replace(/^[*#\s]+/, "").replace(/[*\s]+$/, "").trim();
     const targets = [...quote.matchAll(/\(([A-Z0-9-]{3,10})\)/g)].map((m) => m[1]);
     claims.push({
       claimKey: `${drug}|mechanism_targets|issuer|${targets.join("+").toLowerCase()}`,

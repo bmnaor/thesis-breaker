@@ -106,6 +106,8 @@ export function composeBrief(mem: ThesisMemory, symbol: string, runAt: string): 
     symbol,
     thesis: ZURA_THESIS,
     supporting: [
+      ...lines("mechanism_targets"),
+      ...lines("guidance_event_date").filter((l) => /launch/i.test(l.text)),
       ...lines("trial_phase"),
       ...lines("trial_enrollment"),
       ...lines("trial_sponsor"),

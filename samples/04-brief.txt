@@ -1,24 +1,25 @@
 # THESIS BREAKER - ZURA decision brief
-as of 2026-10-22T17:42:04.415Z
+as of 2026-10-22T17:49:00.774Z
 
 ## Thesis
 "Tibulizumab's dual IL-17A/BAFF blockade shows meaningful Phase-2 efficacy in hidradenitis suppurativa (topline Q4 2026), to be confirmed in systemic sclerosis (H1 2027)."
 
 ## What is actually known (verified claims)
-- NCT06993610 is registered as PHASE2 as of registry update 2025-08-12. <mem-4> [synthetic fixture]
-- NCT06993610 enrollment is 247 (actual) as of registry update 2026-10-19. <mem-7>
-- NCT06993610 lead sponsor is Zura Bio Inc as of registry update 2025-08-12. <mem-5> [synthetic fixture]
+- Issuer states (2025-05-20): "This study is the first to evaluate dual inhibition of B-cell activating factor (BAFF) and interleukin-17A (IL-17A) pathways in adults with moderate to severe hidradenitis suppurativa (HS)" <mem-22>
+- Peer-reviewed literature (MAbs, 2019, PMID 31181988) describes tibulizumab as targeting IL-17A and BAFF: "Development of tibulizumab, a tetravalent bispecific antibody targeting BAFF and IL-17A for the treatment of autoimmune disease.". <mem-21>
+- Issuer announced (2025-05-20): "Zura Bio Launches Global Phase 2 TibuSHIELD Study to Evaluate Tibulizumab in Adults with Hidradenitis Suppurativa". Announcement of a start is an event claim, not evidence of completion. <mem-23>
+- NCT06993610 is registered as PHASE2 as of registry update 2026-10-19. <mem-4>
+- NCT06993610 enrollment is 247 (actual) as of registry update 2026-10-19. <mem-2>
+- NCT06993610 lead sponsor is Zura Bio Inc as of registry update 2026-10-19. <mem-5>
 - Zura Bio Ltd reported cash and cash equivalents of $205.1M as of 2026-06-30 (form 10-Q, filed 2026-08-11). <mem-20>
 
 ## What changed (updates, not contradictions)
-- NCT06993610 (Tibulizumab Skin Healing and Inflammation Evaluation for Lasting Defense) overall status is ACTIVE_NOT_RECRUITING as of registry update 2026-10-19. <mem-6> - supersedes: NCT06993610 (Tibulizumab Skin Healing and Inflammation Evaluation for Lasting Defense) overall status is RECRUITING as of registry update 2025-08-12. <mem-1>
-- NCT06993610 enrollment is 247 (actual) as of registry update 2026-10-19. <mem-7> - supersedes: NCT06993610 enrollment is 180 (estimated) as of registry update 2025-08-12. <mem-2>
-- NCT06993610 primary completion date is 2026-09-18 (actual) as of registry update 2026-10-19. <mem-8> - supersedes: NCT06993610 primary completion date is 2026-09 (estimated) as of registry update 2025-08-12. <mem-3>
+- (none)
 
 ## What would break the thesis
-- FALSIFIER: primary completion date (2026-09-18) is in the past and no topline efficacy claim exists in the graph - if no results disclosure appears in an 8-K/IR release, the catalyst premise weakens. Watch: EDGAR 8-K feed + issuer IR. <mem-8>
+- FALSIFIER: primary completion date (2026-09-18) is in the past and no topline efficacy claim exists in the graph - if no results disclosure appears in an 8-K/IR release, the catalyst premise weakens. Watch: EDGAR 8-K feed + issuer IR. <mem-3>
 - FALSIFIER: funding premise rests on Zura Bio Ltd reported cash and cash equivalents of $205.1M as of 2026-06-30 (form 10-Q, filed 2026-08-11). If the next quarterly filing shows burn inconsistent with funding through the readout, the thesis's "funded" leg breaks. Watch: next 10-Q/20-F cash line. <mem-20>
-- FALSIFIER: a protocol amendment that changes enrollment, endpoints, or population after status ACTIVE_NOT_RECRUITING would narrow the readout's scope. Watch: ClinicalTrials.gov history-of-changes for NCT06993610. <mem-6>
+- FALSIFIER: a protocol amendment that changes enrollment, endpoints, or population after status ACTIVE_NOT_RECRUITING would narrow the readout's scope. Watch: ClinicalTrials.gov history-of-changes for NCT06993610. <mem-1>
 
 ## Unknowns / data gaps
 - Topline efficacy result: no reported_result claim in the graph (registry shows completion, not outcomes).
@@ -32,7 +33,7 @@ as of 2026-10-22T17:42:04.415Z
 - [ ] PubMed for tibulizumab / IL-17A+BAFF publications (weekly).
 
 ## Sources
-- https://clinicaltrials.gov/study/NCT06993610 (retrieved 2026-10-22T17:33:00Z)
+- https://clinicaltrials.gov/study/NCT06993610 (retrieved 2025-08-13T09:00:00Z) [SYNTHETIC FIXTURE]
 - https://data.sec.gov/submissions/CIK0001855644.json (retrieved 2026-10-22T17:33:00Z)
 - https://data.sec.gov/api/xbrl/companyfacts/CIK0001855644.json (retrieved 2026-10-22T17:37:00Z)
 - https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=33123125,31181988&rettype=abstract&retmode=xml (retrieved 2026-10-22T17:40:00Z)
