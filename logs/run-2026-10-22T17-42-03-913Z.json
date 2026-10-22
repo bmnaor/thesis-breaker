@@ -1,61 +1,39 @@
 {
-  "runAt": "2026-10-22T17:40:32.046Z",
+  "runAt": "2026-10-22T17:42:03.913Z",
   "fixtureDir": "fixtures/zura-2026-10-22",
   "mode": "SAMPLE",
-  "documents": 4,
-  "extracted": 22,
-  "verified": 22,
+  "documents": 3,
+  "extracted": 17,
+  "verified": 17,
   "rejected": [],
   "skipped": [],
   "results": [
     {
-      "action": "created",
+      "action": "updated",
       "sentence": "NCT06993610 (Tibulizumab Skin Healing and Inflammation Evaluation for Lasting Defense) overall status is ACTIVE_NOT_RECRUITING as of registry update 2026-10-19.",
-      "memoryId": "mem-1"
+      "memoryId": "mem-6",
+      "supersedesMemoryId": "mem-1"
     },
     {
-      "action": "created",
+      "action": "updated",
       "sentence": "NCT06993610 enrollment is 247 (actual) as of registry update 2026-10-19.",
-      "memoryId": "mem-2"
+      "memoryId": "mem-7",
+      "supersedesMemoryId": "mem-2"
     },
     {
-      "action": "created",
+      "action": "updated",
       "sentence": "NCT06993610 primary completion date is 2026-09-18 (actual) as of registry update 2026-10-19.",
-      "memoryId": "mem-3"
+      "memoryId": "mem-8",
+      "supersedesMemoryId": "mem-3"
     },
     {
-      "action": "created",
+      "action": "duplicate",
       "sentence": "NCT06993610 is registered as PHASE2 as of registry update 2026-10-19.",
       "memoryId": "mem-4"
     },
     {
-      "action": "created",
+      "action": "duplicate",
       "sentence": "NCT06993610 lead sponsor is Zura Bio Inc as of registry update 2026-10-19.",
-      "memoryId": "mem-5"
-    },
-    {
-      "action": "created",
-      "sentence": "NCT06993610 (Tibulizumab Skin Healing and Inflammation Evaluation for Lasting Defense) overall status is RECRUITING as of registry update 2025-08-12.",
-      "memoryId": "mem-6"
-    },
-    {
-      "action": "created",
-      "sentence": "NCT06993610 enrollment is 180 (estimated) as of registry update 2025-08-12.",
-      "memoryId": "mem-7"
-    },
-    {
-      "action": "created",
-      "sentence": "NCT06993610 primary completion date is 2026-09 (estimated) as of registry update 2025-08-12.",
-      "memoryId": "mem-8"
-    },
-    {
-      "action": "duplicate",
-      "sentence": "NCT06993610 is registered as PHASE2 as of registry update 2025-08-12.",
-      "memoryId": "mem-4"
-    },
-    {
-      "action": "duplicate",
-      "sentence": "NCT06993610 lead sponsor is Zura Bio Inc as of registry update 2025-08-12.",
       "memoryId": "mem-5"
     },
     {

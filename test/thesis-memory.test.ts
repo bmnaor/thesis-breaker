@@ -154,3 +154,22 @@ describe("PubMed mechanism evidence", () => {
     expect(mech[0].sentence).toContain("PMID");
   });
 });
+
+describe("Issuer release extraction", () => {
+  it("captures the dual-mechanism statement and launch event, labeled issuer assertions", () => {
+    const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
+    const report = analyzeFixture(FIXTURE, mem, { documentIds: ["zurabio-tibushield-launch-2025-05-20"] });
+    expect(report.rejected).toHaveLength(0);
+    const mech = report.results.find((r) => r.sentence.includes("dual inhibition"))!;
+    expect(mech.sentence).toContain("BAFF");
+    expect(mech.sentence).toContain("IL-17A");
+    const launch = report.results.find((r) => r.sentence.includes("not evidence of completion"))!;
+    expect(launch.sentence).toContain("2025-05-20");
+    // issuer mechanism claim and PubMed mechanism claim are independent source classes
+    const pub = new ThesisMemory({ persistDir: dir, clock: () => T1 });
+    analyzeFixture(FIXTURE, pub, { documentIds: ["pubmed-tibulizumab-efetch-2026-10-22"] });
+    const classes = new Set(mem.hmem.store.all().concat(pub.hmem.store.all()).map((m) => m.tags.find((t) => t.startsWith("class:"))));
+    expect(classes.has("class:issuer_release")).toBe(true);
+    expect(classes.has("class:peer_reviewed")).toBe(true);
+  });
+});

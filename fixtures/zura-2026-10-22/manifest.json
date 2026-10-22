@@ -56,6 +56,17 @@
       "sha256": "2ab2c34bc2f0b391d6ee43d585d4674065d19641e46085f7390d579dc56310f1",
       "synthetic": false,
       "note": "Real efetch capture, PMIDs from esearch 'tibulizumab' (count=2)"
+    },
+    {
+      "documentId": "zurabio-tibushield-launch-2025-05-20",
+      "path": "raw/zurabio-tibushield-launch-2025-05-20.md",
+      "canonicalUrl": "https://investors.zurabio.com/news-releases/news-release-details/zura-bio-launches-global-phase-2-tibushield-study-evaluate",
+      "publisher": "Zura Bio Ltd (issuer IR)",
+      "sourceClass": "issuer_release",
+      "retrievedAt": "2026-10-22T17:41:00Z",
+      "sha256": "ecf0f4601dea212fd3de5c76132dd8515219d2bd2a20636755f82b367da4d841",
+      "synthetic": false,
+      "note": "Issuer release via Tavily Extract API (direct fetch blocked by issuer WAF); text as returned by Tavily"
     }
   ]
 }
