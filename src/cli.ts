@@ -3,6 +3,7 @@
 import fs from "node:fs";
 import { ThesisMemory } from "./memory/thesisMemory.ts";
 import { analyzeFixture } from "./orchestrator/analyze.ts";
+import { composeBrief, renderBrief } from "./brief/compose.ts";
 
 const [cmd, ...args] = process.argv.slice(2);
 
@@ -39,6 +40,13 @@ if (cmd === "analyze" || cmd === "demo") {
   const report = analyzeFixture(fixtureDir, memory, { logDir: "logs" });
   console.log(`\nThesis Breaker run (${report.mode}) at ${report.runAt}`);
   printReport(report);
+} else if (cmd === "brief") {
+  const fixtureDir = opt("fixture", "fixtures/zura-2026-10-22")!;
+  const symbol = args.find((a) => !a.startsWith("--")) ?? "ZURA";
+  const memory = new ThesisMemory({ persistDir: memoryDir });
+  const report = analyzeFixture(fixtureDir, memory, { logDir: "logs" });
+  const brief = composeBrief(memory, symbol, report.runAt);
+  console.log(renderBrief(brief));
 } else if (cmd === "recall") {
   const q = args.filter((a) => !a.startsWith("--")).join(" ");
   const memory = new ThesisMemory({ persistDir: memoryDir });
@@ -50,6 +58,6 @@ if (cmd === "analyze" || cmd === "demo") {
   const id = args[0];
   for (const e of memory.audit(id)) console.log(JSON.stringify(e));
 } else {
-  console.log("usage: tsx src/cli.ts analyze [--fixture DIR] | recall <query> | audit <memory-id>");
+  console.log("usage: tsx src/cli.ts analyze [--fixture DIR] | brief [SYMBOL] | recall <query> | audit <memory-id>");
   process.exit(1);
 }

@@ -1,0 +1,36 @@
+# THESIS BREAKER - ZURA decision brief
+as of 2026-10-22T17:40:32.046Z
+
+## Thesis
+"Tibulizumab's dual IL-17A/BAFF blockade shows meaningful Phase-2 efficacy in hidradenitis suppurativa (topline Q4 2026), to be confirmed in systemic sclerosis (H1 2027)."
+
+## What is actually known (verified claims)
+- NCT06993610 is registered as PHASE2 as of registry update 2026-10-19. <mem-4>
+- NCT06993610 enrollment is 247 (actual) as of registry update 2026-10-19. <mem-2>
+- NCT06993610 lead sponsor is Zura Bio Inc as of registry update 2026-10-19. <mem-5>
+- Zura Bio Ltd reported cash and cash equivalents of $205.1M as of 2026-06-30 (form 10-Q, filed 2026-08-11). <mem-20>
+
+## What changed (updates, not contradictions)
+- (none)
+
+## What would break the thesis
+- FALSIFIER: primary completion date (2026-09-18) is in the past and no topline efficacy claim exists in the graph - if no results disclosure appears in an 8-K/IR release, the catalyst premise weakens. Watch: EDGAR 8-K feed + issuer IR. <mem-3>
+- FALSIFIER: funding premise rests on Zura Bio Ltd reported cash and cash equivalents of $205.1M as of 2026-06-30 (form 10-Q, filed 2026-08-11). If the next quarterly filing shows burn inconsistent with funding through the readout, the thesis's "funded" leg breaks. Watch: next 10-Q/20-F cash line. <mem-20>
+- FALSIFIER: a protocol amendment that changes enrollment, endpoints, or population after status ACTIVE_NOT_RECRUITING would narrow the readout's scope. Watch: ClinicalTrials.gov history-of-changes for NCT06993610. <mem-1>
+
+## Unknowns / data gaps
+- Topline efficacy result: no reported_result claim in the graph (registry shows completion, not outcomes).
+- Cash runway statement: issuer guidance not in the fixture; filed cash is a fact, runway is a forward-looking claim still to source.
+- Mechanism (dual IL-17A/BAFF blockade): issuer release not yet in the fixture; PubMed context connector not built yet.
+
+## Monitoring checklist
+- [ ] ClinicalTrials.gov NCT06993610: status + history-of-changes (weekly).
+- [ ] EDGAR full-text for ZURA 8-K (results, financing) (daily on weekdays).
+- [ ] Issuer IR news index for topline/corporate releases (daily).
+- [ ] PubMed for tibulizumab / IL-17A+BAFF publications (weekly).
+
+## Sources
+- https://clinicaltrials.gov/study/NCT06993610 (retrieved 2025-08-13T09:00:00Z) [SYNTHETIC FIXTURE]
+- https://data.sec.gov/submissions/CIK0001855644.json (retrieved 2026-10-22T17:33:00Z)
+- https://data.sec.gov/api/xbrl/companyfacts/CIK0001855644.json (retrieved 2026-10-22T17:37:00Z)
+

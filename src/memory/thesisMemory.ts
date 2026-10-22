@@ -57,10 +57,12 @@ export class ThesisMemory {
     // 2. Same subject+predicate slot with a different object? That is an
     //    update: the new record supersedes the newest prior one, and the
     //    prior is marked supersededBy (penalized in ranking, never deleted).
-    const priorInSlot = this.findByTag(SLOT(claim))
-      .filter((m) => !m.supersededBy)
-      .sort((a, b) => b.timestamp - a.timestamp);
-    const prior = priorInSlot[0];
+    // The slot's current record is the one with the newest asOf, not the
+    // newest ingest order: sources may arrive out of order.
+    const priorInSlot = this.findByTag(SLOT(claim)).filter((m) => !m.supersededBy);
+    const byAsOf = (m: MemoryRecord) => m.tags.find((t) => t.startsWith("asof:"))?.slice(5) ?? "";
+    const prior = priorInSlot.sort((a, b) => byAsOf(b).localeCompare(byAsOf(a)))[0];
+    const incomingIsNewer = !prior || claim.asOf >= byAsOf(prior);
 
     const memory = this.hmem.add({
       content: claim.sentence,
@@ -72,6 +74,11 @@ export class ThesisMemory {
         KEY(claim),
         SLOT(claim),
         `class:${claim.source.sourceClass}`,
+        `subj:${claim.subject}`,
+        `obj:${claim.object}`,
+        `mod:${claim.modality}`,
+        `asof:${claim.asOf}`,
+        `retrieved:${claim.source.retrievedAt}`,
         ...(claim.source.synthetic ? ["synthetic"] : []),
       ],
       confidence: claim.confidence,
@@ -82,12 +89,17 @@ export class ThesisMemory {
         label: `${claim.source.publisher} ${claim.span.pointer ?? claim.span.locatorType} (retrieved ${claim.source.retrievedAt}, as of ${claim.asOf})`,
         refs: [claim.source.documentId, claim.span.quoteSha256],
       },
-      supersedes: prior?.id,
+      supersedes: incomingIsNewer ? prior?.id : undefined,
     });
 
-    if (prior) {
+    if (prior && incomingIsNewer) {
       this.hmem.store.update(prior.id, { supersededBy: memory.id });
       return { claim, action: "updated", memory, supersedesMemoryId: prior.id };
+    }
+    if (prior && !incomingIsNewer) {
+      // Out-of-order older source: keep history but rank it below the current one.
+      this.hmem.store.update(memory.id, { supersededBy: prior.id });
+      return { claim, action: "created", memory, supersedesMemoryId: undefined };
     }
     return { claim, action: "created", memory };
   }

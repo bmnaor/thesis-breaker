@@ -44,6 +44,7 @@ export function analyzeFixture(fixtureDir: string, memory: ThesisMemory, opts?: 
       continue;
     }
     extracted += claims.length;
+    claims.sort((a, b) => a.asOf.localeCompare(b.asOf));
     for (const claim of claims) {
       const sourceDoc = docs.find((d) => d.ref.documentId === claim.source.documentId)!;
       if (!verifySpan(sourceDoc, claim.span)) {

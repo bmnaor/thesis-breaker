@@ -1,0 +1,130 @@
+{
+  "runAt": "2026-10-22T17:40:32.046Z",
+  "fixtureDir": "fixtures/zura-2026-10-22",
+  "mode": "SAMPLE",
+  "documents": 4,
+  "extracted": 22,
+  "verified": 22,
+  "rejected": [],
+  "skipped": [],
+  "results": [
+    {
+      "action": "created",
+      "sentence": "NCT06993610 (Tibulizumab Skin Healing and Inflammation Evaluation for Lasting Defense) overall status is ACTIVE_NOT_RECRUITING as of registry update 2026-10-19.",
+      "memoryId": "mem-1"
+    },
+    {
+      "action": "created",
+      "sentence": "NCT06993610 enrollment is 247 (actual) as of registry update 2026-10-19.",
+      "memoryId": "mem-2"
+    },
+    {
+      "action": "created",
+      "sentence": "NCT06993610 primary completion date is 2026-09-18 (actual) as of registry update 2026-10-19.",
+      "memoryId": "mem-3"
+    },
+    {
+      "action": "created",
+      "sentence": "NCT06993610 is registered as PHASE2 as of registry update 2026-10-19.",
+      "memoryId": "mem-4"
+    },
+    {
+      "action": "created",
+      "sentence": "NCT06993610 lead sponsor is Zura Bio Inc as of registry update 2026-10-19.",
+      "memoryId": "mem-5"
+    },
+    {
+      "action": "created",
+      "sentence": "NCT06993610 (Tibulizumab Skin Healing and Inflammation Evaluation for Lasting Defense) overall status is RECRUITING as of registry update 2025-08-12.",
+      "memoryId": "mem-6"
+    },
+    {
+      "action": "created",
+      "sentence": "NCT06993610 enrollment is 180 (estimated) as of registry update 2025-08-12.",
+      "memoryId": "mem-7"
+    },
+    {
+      "action": "created",
+      "sentence": "NCT06993610 primary completion date is 2026-09 (estimated) as of registry update 2025-08-12.",
+      "memoryId": "mem-8"
+    },
+    {
+      "action": "duplicate",
+      "sentence": "NCT06993610 is registered as PHASE2 as of registry update 2025-08-12.",
+      "memoryId": "mem-4"
+    },
+    {
+      "action": "duplicate",
+      "sentence": "NCT06993610 lead sponsor is Zura Bio Inc as of registry update 2025-08-12.",
+      "memoryId": "mem-5"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd filed form 8-K on 2026-06-18 (report period 2026-06-17) (accession 0001104659-26-075826).",
+      "memoryId": "mem-9"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd filed form 8-K on 2026-07-01 (report period 2026-07-01) (accession 0001104659-26-079538).",
+      "memoryId": "mem-10"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd filed form 8-K on 2026-08-11 (report period 2026-08-11) (accession 0001855644-26-000007).",
+      "memoryId": "mem-11"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd filed form 10-Q on 2026-08-11 (report period 2026-06-30) (accession 0001855644-26-000006).",
+      "memoryId": "mem-12"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd filed form 8-K on 2026-08-17 (report period 2026-08-17) (accession 0001104659-26-097526).",
+      "memoryId": "mem-13"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd reported cash and cash equivalents of $170.6M as of 2025-03-31 (form 10-Q, filed 2025-05-08).",
+      "memoryId": "mem-14"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd reported cash and cash equivalents of $154.5M as of 2025-06-30 (form 10-Q, filed 2025-08-14).",
+      "memoryId": "mem-15"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd reported cash and cash equivalents of $139.0M as of 2025-09-30 (form 10-Q, filed 2025-11-13).",
+      "memoryId": "mem-16"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd reported cash and cash equivalents of $176.5M as of 2024-12-31 (form 10-K, filed 2026-03-19).",
+      "memoryId": "mem-17"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd reported cash and cash equivalents of $225.6M as of 2026-03-31 (form 10-Q, filed 2026-05-07).",
+      "memoryId": "mem-18"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd reported cash and cash equivalents of $109.4M as of 2025-12-31 (form 10-Q, filed 2026-08-11).",
+      "memoryId": "mem-19"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd reported cash and cash equivalents of $205.1M as of 2026-06-30 (form 10-Q, filed 2026-08-11).",
+      "memoryId": "mem-20"
+    }
+  ],
+  "manifest": {
+    "memories": 20,
+    "ledgerEntries": 23,
+    "byAction": {
+      "create": 20,
+      "update": 3
+    }
+  }
+}

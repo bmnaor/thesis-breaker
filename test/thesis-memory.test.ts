@@ -128,3 +128,16 @@ describe("EDGAR extraction", () => {
     expect(report.results.some((r) => r.sentence.includes("10-Q"))).toBe(true);
   });
 });
+
+describe("out-of-order sources", () => {
+  it("an older registry state arriving AFTER the newer one never rewrites the present", () => {
+    const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
+    analyzeFixture(FIXTURE, mem, { documentIds: [CURRENT] });
+    analyzeFixture(FIXTURE, mem, { documentIds: [OLDER] }); // late-arriving history
+    const res = mem.recall("NCT06993610 overall status");
+    const top = res.memories[0].memory;
+    expect(top.content).toContain("ACTIVE_NOT_RECRUITING");
+    const old = mem.hmem.store.all().find((m) => m.content.includes("RECRUITING") && !m.content.includes("ACTIVE"))!;
+    expect(old.supersededBy).toBeTruthy(); // history kept, penalized
+  });
+});
