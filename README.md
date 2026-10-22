@@ -8,7 +8,7 @@ The agent takes a biotech ticker and an investment thesis, pulls primary sources
 
 ```bash
 npm install
-npm test                 # 21 tests: engine smoke + claim-memory integration
+npm test                 # 23 tests: engine smoke + integration + origin families
 npm run conformance      # Meterless H-MEM conformance suite (13/13)
 npm run demo             # two-phase ZURA run: update vs contradiction, live
 npx tsx src/cli.ts recall "TibuSHIELD enrollment"   # hybrid memory recall
@@ -57,10 +57,18 @@ vendored engine (`vendor/hmem-conformance`): **13/13 checks pass.**
   memory ids it stands on (`src/brief/compose.ts`, `npx tsx src/cli.ts brief ZURA`).
 - CLI demo + brief + recall + audit (`src/cli.ts`). Sample outputs in `samples/`.
 
-Named gaps (honest roadmap): origin-family/echo clustering across documents
-(independence counting), LLM extraction + contradiction judge on Nebius,
-Tavily search connector for reporting discovery, Zetaris SQL evidence mart,
-web UI, Docker.
+- Origin-family clustering (shingle containment): echoed/syndicated documents
+  collapse into one family; independence counts families, not pages
+  (`src/claims/originFamily.ts`, eval gold #10 proven on synthetic echo pages).
+- Nebius Token Factory client with startup model discovery and a JSONL model
+  ledger (model, latency, tokens, prompt version; never keys) - `src/models/nebius.ts`.
+- Nemotron claim-relation judge (`src/claims/judge.ts`); verified live:
+  `NEBIUS_API_KEY=... npx tsx src/orchestrator/liveJudge.ts` classifies the
+  RECRUITING -> ACTIVE_NOT_RECRUITING pair as an update (eval gold #9).
+
+Named gaps (honest roadmap): LLM free-text extraction on Nebius (judge path is
+live, extractor path pending), Tavily search connector for reporting discovery,
+Zetaris SQL evidence mart, web UI, Docker.
 
 ## Stack note
 

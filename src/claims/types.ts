@@ -45,6 +45,7 @@ export interface EvidenceSpan {
 
 export interface SourceRef {
   documentId: string;        // fixture-relative id or sha256 of raw bytes
+  originFamilyId?: string;   // root document of this doc's echo family (set at ingest)
   canonicalUrl: string;
   publisher: string;
   sourceClass: SourceClass;

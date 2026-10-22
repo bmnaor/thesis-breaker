@@ -74,6 +74,7 @@ export class ThesisMemory {
         KEY(claim),
         SLOT(claim),
         `class:${claim.source.sourceClass}`,
+        `family:${claim.source.originFamilyId ?? claim.source.documentId}`,
         `subj:${claim.subject}`,
         `obj:${claim.object}`,
         `mod:${claim.modality}`,

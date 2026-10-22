@@ -9,6 +9,8 @@ import os from "node:os";
 import path from "node:path";
 import { ThesisMemory } from "../src/memory/thesisMemory.ts";
 import { analyzeFixture } from "../src/orchestrator/analyze.ts";
+import { loadDocuments } from "../src/connectors/fixture.ts";
+import { assignFamilies } from "../src/claims/originFamily.ts";
 
 const FIXTURE = path.resolve(__dirname, "../fixtures/zura-2026-10-22");
 const OLDER = "ctgov-NCT06993610-older-RECRUITING-synthetic";
@@ -171,5 +173,37 @@ describe("Issuer release extraction", () => {
     const classes = new Set(mem.hmem.store.all().concat(pub.hmem.store.all()).map((m) => m.tags.find((t) => t.startsWith("class:"))));
     expect(classes.has("class:issuer_release")).toBe(true);
     expect(classes.has("class:peer_reviewed")).toBe(true);
+  });
+});
+
+describe("origin families (eval gold #10)", () => {
+  const ECHOES = [
+    "commentary-biotechdaily-tibushield-synthetic",
+    "commentary-smallcapwire-zura-synthetic",
+    "commentary-forumblog-zura-synthetic",
+  ];
+  const RELEASE = "zurabio-tibushield-launch-2025-05-20";
+
+  it("three pages quoting one release cluster into ONE origin family", () => {
+    const docs = loadDocuments(FIXTURE);
+    const fams = assignFamilies(docs);
+    for (const e of ECHOES) {
+      expect(fams.familyOf.get(e)).toBe(RELEASE);
+    }
+    // independent sources stay independent
+    expect(fams.familyOf.get("pubmed-tibulizumab-efetch-2026-10-22")).toBe("pubmed-tibulizumab-efetch-2026-10-22");
+    expect(fams.familyOf.get(CURRENT)).toBe(CURRENT);
+  });
+
+  it("independence counting: echoed mechanism claims count as one family, not three confirmations", () => {
+    const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
+    analyzeFixture(FIXTURE, mem, { documentIds: [RELEASE, ...ECHOES, "pubmed-tibulizumab-efetch-2026-10-22"] });
+    const families = new Set(
+      mem.hmem.store.all().map((m) => m.tags.find((t) => t.startsWith("family:"))?.slice(7))
+    );
+    // issuer release family + PubMed family. The three echo pages add NOTHING.
+    expect(families.size).toBe(2);
+    expect(families.has(RELEASE)).toBe(true);
+    expect(families.has("pubmed-tibulizumab-efetch-2026-10-22")).toBe(true);
   });
 });

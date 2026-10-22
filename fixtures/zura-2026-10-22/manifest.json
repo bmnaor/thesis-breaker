@@ -67,6 +67,39 @@
       "sha256": "ecf0f4601dea212fd3de5c76132dd8515219d2bd2a20636755f82b367da4d841",
       "synthetic": false,
       "note": "Issuer release via Tavily Extract API (direct fetch blocked by issuer WAF); text as returned by Tavily"
+    },
+    {
+      "documentId": "commentary-biotechdaily-tibushield-synthetic",
+      "path": "synthetic/commentary-biotechdaily-tibushield.md",
+      "canonicalUrl": "https://example.invalid/commentary-biotechdaily-tibushield",
+      "publisher": "Synthetic commentary",
+      "sourceClass": "commentary",
+      "retrievedAt": "2026-10-22T17:45:00Z",
+      "sha256": "395e28b0edefcdc811138c1cb1754c49d1ec26e23082ede259ac32413f3d6f38",
+      "synthetic": true,
+      "note": "SYNTHETIC commentary page quoting the issuer release verbatim, for origin-family/independence testing (eval gold #10). Not a real publication."
+    },
+    {
+      "documentId": "commentary-smallcapwire-zura-synthetic",
+      "path": "synthetic/commentary-smallcapwire-zura.md",
+      "canonicalUrl": "https://example.invalid/commentary-smallcapwire-zura",
+      "publisher": "Synthetic commentary",
+      "sourceClass": "commentary",
+      "retrievedAt": "2026-10-22T17:45:00Z",
+      "sha256": "682d4d7ee63b2837d392099fc054115ce04d6f25e0d85aa792b6102f9e6f4cd7",
+      "synthetic": true,
+      "note": "SYNTHETIC commentary page quoting the issuer release verbatim, for origin-family/independence testing (eval gold #10). Not a real publication."
+    },
+    {
+      "documentId": "commentary-forumblog-zura-synthetic",
+      "path": "synthetic/commentary-forumblog-zura.md",
+      "canonicalUrl": "https://example.invalid/commentary-forumblog-zura",
+      "publisher": "Synthetic commentary",
+      "sourceClass": "commentary",
+      "retrievedAt": "2026-10-22T17:45:00Z",
+      "sha256": "3dd3ea78e640c061cd84345e6acb7a0dfc8153b199f507564289daf1f53dfdb7",
+      "synthetic": true,
+      "note": "SYNTHETIC commentary page quoting the issuer release verbatim, for origin-family/independence testing (eval gold #10). Not a real publication."
     }
   ]
 }

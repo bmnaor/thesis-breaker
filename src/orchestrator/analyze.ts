@@ -9,6 +9,7 @@ import { extractRegistryClaims, verifySpan } from "../claims/registryExtract.ts"
 import { extractCompanyFactsClaims, extractFilingEventClaims } from "../claims/edgarExtract.ts";
 import { extractMechanismClaims } from "../claims/pubmedExtract.ts";
 import { extractIssuerReleaseClaims } from "../claims/irExtract.ts";
+import { assignFamilies } from "../claims/originFamily.ts";
 import { ThesisMemory, type RecordResult } from "../memory/thesisMemory.ts";
 
 export interface RunReport {
@@ -29,6 +30,8 @@ export function analyzeFixture(fixtureDir: string, memory: ThesisMemory, opts?: 
   if (opts?.documentIds) docs = docs.filter((d) => opts.documentIds!.includes(d.ref.documentId));
   const results: RecordResult[] = [];
   const symbol = opts?.symbol ?? "ZURA";
+  const families = assignFamilies(docs);
+  for (const d of docs) d.ref.originFamilyId = families.familyOf.get(d.ref.documentId);
   const rejected: { sentence: string; reason: string }[] = [];
   const skipped: string[] = [];
   let extracted = 0;
