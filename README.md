@@ -8,7 +8,7 @@ The agent takes a biotech ticker and an investment thesis, pulls primary sources
 
 ```bash
 npm install
-npm test                 # 16 tests: engine smoke + claim-memory integration
+npm test                 # 21 tests: engine smoke + claim-memory integration
 npm run conformance      # Meterless H-MEM conformance suite (13/13)
 npm run demo             # two-phase ZURA run: update vs contradiction, live
 npx tsx src/cli.ts recall "TibuSHIELD enrollment"   # hybrid memory recall
@@ -44,18 +44,23 @@ vendored engine (`vendor/hmem-conformance`): **13/13 checks pass.**
 ## What works today (build-day 1 slice)
 
 - Frozen fixture loading with SHA-256 integrity checks (`src/connectors/fixture.ts`).
-- Deterministic ClinicalTrials.gov v2 claim extraction with JSON-pointer spans
-  that are re-verified against the stored bytes before a claim may enter memory
-  (`src/claims/registryExtract.ts`). Unverifiable claims are rejected, not trusted.
-- Claim -> memory recording with dedupe / update / create semantics, lineage
-  audit, and a machine-readable run manifest written to `logs/`
-  (`src/memory/thesisMemory.ts`, `src/orchestrator/analyze.ts`).
-- CLI demo + recall + audit (`src/cli.ts`). Sample outputs in `samples/`.
+- Deterministic claim extractors, each span re-verified against stored bytes
+  before a claim may enter memory; unverifiable claims are rejected:
+  - ClinicalTrials.gov API v2 (JSON-pointer spans) - `src/claims/registryExtract.ts`
+  - SEC EDGAR XBRL company facts (cash) + submissions (filing events) - `src/claims/edgarExtract.ts`
+  - PubMed efetch XML (mechanism evidence) - `src/claims/pubmedExtract.ts`
+  - Issuer IR release (via Tavily Extract) - `src/claims/irExtract.ts`
+- Claim -> memory recording with dedupe / update / create semantics, asOf-ordered
+  supersession (out-of-order sources never rewrite the present), lineage audit,
+  machine-readable run manifest in `logs/` (`src/memory/thesisMemory.ts`).
+- Deterministic decision brief + falsifier composer: every sentence carries the
+  memory ids it stands on (`src/brief/compose.ts`, `npx tsx src/cli.ts brief ZURA`).
+- CLI demo + brief + recall + audit (`src/cli.ts`). Sample outputs in `samples/`.
 
-Named gaps (honest roadmap): EDGAR/IR/PubMed/Tavily extractors (the EDGAR
-document is already frozen in the fixture and is loudly SKIPPED), LLM
-extraction path on Nebius, contradiction judge, brief composer, Zetaris SQL
-evidence mart, web UI.
+Named gaps (honest roadmap): origin-family/echo clustering across documents
+(independence counting), LLM extraction + contradiction judge on Nebius,
+Tavily search connector for reporting discovery, Zetaris SQL evidence mart,
+web UI, Docker.
 
 ## Stack note
 
