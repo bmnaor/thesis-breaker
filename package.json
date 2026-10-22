@@ -1,0 +1,22 @@
+{
+  "name": "thesis-breaker",
+  "version": "0.1.0",
+  "description": "An evidence-backed market catalyst agent: claim graph with source provenance, contradiction detection, and explicit thesis falsifiers. Open Agent Hackathon 2026 + Nebius Global AI Hackathon.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "analyze": "tsx src/cli.ts analyze",
+    "recall": "tsx src/cli.ts recall",
+    "audit": "tsx src/cli.ts audit",
+    "test": "vitest run",
+    "conformance": "tsx vendor/hmem-conformance/runner.ts",
+    "demo": "tsx src/cli.ts demo"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}

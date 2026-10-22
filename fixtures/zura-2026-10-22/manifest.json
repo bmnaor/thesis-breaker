@@ -1,0 +1,39 @@
+{
+  "fixture": "zura-2026-10-22",
+  "capturedAt": "2026-10-22T17:33:00Z",
+  "documents": [
+    {
+      "documentId": "ctgov-NCT06993610-2026-10-22",
+      "path": "raw/NCT06993610-2026-10-22.json",
+      "canonicalUrl": "https://clinicaltrials.gov/study/NCT06993610",
+      "publisher": "ClinicalTrials.gov (NIH/NLM)",
+      "sourceClass": "registry",
+      "retrievedAt": "2026-10-22T17:33:00Z",
+      "sha256": "49a8f0c89950d4bebd38632169fdd99954297e6832c8449edd4dcc1ddeef7444",
+      "synthetic": false,
+      "note": "Real API v2 capture of /api/v2/studies/NCT06993610"
+    },
+    {
+      "documentId": "ctgov-NCT06993610-older-RECRUITING-synthetic",
+      "path": "synthetic/NCT06993610-older-RECRUITING.json",
+      "canonicalUrl": "https://clinicaltrials.gov/study/NCT06993610",
+      "publisher": "ClinicalTrials.gov (NIH/NLM)",
+      "sourceClass": "registry",
+      "retrievedAt": "2025-08-13T09:00:00Z",
+      "sha256": "ea1761bce8d0b0bb2f8fe6a3467968e25673893100d0ee18e276948c7666c1fa",
+      "synthetic": true,
+      "note": "SYNTHETIC controlled counterfactual: older registry state (RECRUITING) derived from the real 2026-10-22 capture, for update-vs-contradiction testing (eval gold #9). Not a real retrieval."
+    },
+    {
+      "documentId": "edgar-submissions-CIK0001855644-2026-10-22",
+      "path": "raw/edgar-submissions-CIK0001855644-2026-10-22.json",
+      "canonicalUrl": "https://data.sec.gov/submissions/CIK0001855644.json",
+      "publisher": "U.S. Securities and Exchange Commission",
+      "sourceClass": "issuer_filing",
+      "retrievedAt": "2026-10-22T17:33:00Z",
+      "sha256": "e8062990a2750cba821e6a6092231b522bdd13b052afbb0fd597ffd817e873c7",
+      "synthetic": false,
+      "note": "Real EDGAR submissions API capture for Zura Bio Ltd (CIK 1855644)"
+    }
+  ]
+}

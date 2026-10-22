@@ -1,0 +1,16 @@
+
+Thesis Breaker run (SAMPLE) at 2026-10-22T17:37:19.842Z
+run (SAMPLE) at 2026-10-22T17:37:19.842Z
+documents: 3 | extracted: 10 | verified: 10 | rejected: 0
+  [created] mem-1: NCT06993610 (Tibulizumab Skin Healing and Inflammation Evaluation for Lasting Defense) overall status is ACTIVE_NOT_RECRUITING as of registry update 2026-10-19.
+  [created] mem-2: NCT06993610 enrollment is 247 (actual) as of registry update 2026-10-19.
+  [created] mem-3: NCT06993610 primary completion date is 2026-09-18 (actual) as of registry update 2026-10-19.
+  [created] mem-4: NCT06993610 is registered as PHASE2 as of registry update 2026-10-19.
+  [created] mem-5: NCT06993610 lead sponsor is Zura Bio Inc as of registry update 2026-10-19.
+  [updated] mem-6: NCT06993610 (Tibulizumab Skin Healing and Inflammation Evaluation for Lasting Defense) overall status is RECRUITING as of registry update 2025-08-12. (supersedes mem-1)
+  [updated] mem-7: NCT06993610 enrollment is 180 (estimated) as of registry update 2025-08-12. (supersedes mem-2)
+  [updated] mem-8: NCT06993610 primary completion date is 2026-09 (estimated) as of registry update 2025-08-12. (supersedes mem-3)
+  [duplicate] mem-4: NCT06993610 is registered as PHASE2 as of registry update 2025-08-12.
+  [duplicate] mem-5: NCT06993610 lead sponsor is Zura Bio Inc as of registry update 2025-08-12.
+  [SKIPPED] U.S. Securities and Exchange Commission (issuer_filing): connector not implemented in this slice yet
+memory spine: 8 memories, 11 ledger entries { create: 8, update: 3 }
