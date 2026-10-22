@@ -6,6 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { loadDocuments } from "../connectors/fixture.ts";
 import { extractRegistryClaims, verifySpan } from "../claims/registryExtract.ts";
+import { extractCompanyFactsClaims, extractFilingEventClaims } from "../claims/edgarExtract.ts";
 import { ThesisMemory, type RecordResult } from "../memory/thesisMemory.ts";
 
 export interface RunReport {
@@ -21,10 +22,11 @@ export interface RunReport {
   manifest: { memories: number; ledgerEntries: number; byAction: Record<string, number> };
 }
 
-export function analyzeFixture(fixtureDir: string, memory: ThesisMemory, opts?: { logDir?: string; documentIds?: string[] }): RunReport {
+export function analyzeFixture(fixtureDir: string, memory: ThesisMemory, opts?: { logDir?: string; documentIds?: string[]; symbol?: string }): RunReport {
   let docs = loadDocuments(fixtureDir);
   if (opts?.documentIds) docs = docs.filter((d) => opts.documentIds!.includes(d.ref.documentId));
   const results: RecordResult[] = [];
+  const symbol = opts?.symbol ?? "ZURA";
   const rejected: { sentence: string; reason: string }[] = [];
   const skipped: string[] = [];
   let extracted = 0;
@@ -33,6 +35,10 @@ export function analyzeFixture(fixtureDir: string, memory: ThesisMemory, opts?: 
     let claims;
     if (doc.ref.sourceClass === "registry" && doc.ref.canonicalUrl.includes("clinicaltrials.gov")) {
       claims = extractRegistryClaims(doc);
+    } else if (doc.ref.canonicalUrl.includes("companyfacts")) {
+      claims = extractCompanyFactsClaims(doc, symbol);
+    } else if (doc.ref.canonicalUrl.includes("data.sec.gov/submissions")) {
+      claims = extractFilingEventClaims(doc, symbol);
     } else {
       skipped.push(`${doc.ref.publisher} (${doc.ref.sourceClass}): connector not implemented in this slice yet`);
       continue;

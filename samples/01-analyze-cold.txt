@@ -1,7 +1,7 @@
 
-Thesis Breaker run (SAMPLE) at 2026-10-22T17:37:19.842Z
-run (SAMPLE) at 2026-10-22T17:37:19.842Z
-documents: 3 | extracted: 10 | verified: 10 | rejected: 0
+Thesis Breaker run (SAMPLE) at 2026-10-22T17:38:49.577Z
+run (SAMPLE) at 2026-10-22T17:38:49.577Z
+documents: 4 | extracted: 22 | verified: 22 | rejected: 0
   [created] mem-1: NCT06993610 (Tibulizumab Skin Healing and Inflammation Evaluation for Lasting Defense) overall status is ACTIVE_NOT_RECRUITING as of registry update 2026-10-19.
   [created] mem-2: NCT06993610 enrollment is 247 (actual) as of registry update 2026-10-19.
   [created] mem-3: NCT06993610 primary completion date is 2026-09-18 (actual) as of registry update 2026-10-19.
@@ -12,5 +12,16 @@ documents: 3 | extracted: 10 | verified: 10 | rejected: 0
   [updated] mem-8: NCT06993610 primary completion date is 2026-09 (estimated) as of registry update 2025-08-12. (supersedes mem-3)
   [duplicate] mem-4: NCT06993610 is registered as PHASE2 as of registry update 2025-08-12.
   [duplicate] mem-5: NCT06993610 lead sponsor is Zura Bio Inc as of registry update 2025-08-12.
-  [SKIPPED] U.S. Securities and Exchange Commission (issuer_filing): connector not implemented in this slice yet
-memory spine: 8 memories, 11 ledger entries { create: 8, update: 3 }
+  [created] mem-9: Zura Bio Ltd filed form 8-K on 2026-08-17 (report period 2026-08-17) (accession 0001104659-26-097526).
+  [created] mem-10: Zura Bio Ltd filed form 8-K on 2026-08-11 (report period 2026-08-11) (accession 0001855644-26-000007).
+  [created] mem-11: Zura Bio Ltd filed form 10-Q on 2026-08-11 (report period 2026-06-30) (accession 0001855644-26-000006).
+  [created] mem-12: Zura Bio Ltd filed form 8-K on 2026-07-01 (report period 2026-07-01) (accession 0001104659-26-079538).
+  [created] mem-13: Zura Bio Ltd filed form 8-K on 2026-06-18 (report period 2026-06-17) (accession 0001104659-26-075826).
+  [created] mem-14: Zura Bio Ltd reported cash and cash equivalents of $176.5M as of 2024-12-31 (form 10-K, filed 2026-03-19).
+  [created] mem-15: Zura Bio Ltd reported cash and cash equivalents of $170.6M as of 2025-03-31 (form 10-Q, filed 2025-05-08).
+  [created] mem-16: Zura Bio Ltd reported cash and cash equivalents of $154.5M as of 2025-06-30 (form 10-Q, filed 2025-08-14).
+  [created] mem-17: Zura Bio Ltd reported cash and cash equivalents of $139.0M as of 2025-09-30 (form 10-Q, filed 2025-11-13).
+  [created] mem-18: Zura Bio Ltd reported cash and cash equivalents of $109.4M as of 2025-12-31 (form 10-Q, filed 2026-08-11).
+  [created] mem-19: Zura Bio Ltd reported cash and cash equivalents of $225.6M as of 2026-03-31 (form 10-Q, filed 2026-05-07).
+  [created] mem-20: Zura Bio Ltd reported cash and cash equivalents of $205.1M as of 2026-06-30 (form 10-Q, filed 2026-08-11).
+memory spine: 20 memories, 23 ledger entries { create: 20, update: 3 }

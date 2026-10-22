@@ -32,7 +32,7 @@ if (cmd === "analyze" || cmd === "demo") {
     const r1 = analyzeFixture(fixtureDir, memory, { logDir: "logs", documentIds: ["ctgov-NCT06993610-older-RECRUITING-synthetic"] });
     printReport(r1);
     console.log("\nPhase 2 - today's real capture (2026-10-22):");
-    const r2 = analyzeFixture(fixtureDir, memory, { logDir: "logs", documentIds: ["ctgov-NCT06993610-2026-10-22", "edgar-submissions-CIK0001855644-2026-10-22"] });
+    const r2 = analyzeFixture(fixtureDir, memory, { logDir: "logs", documentIds: ["ctgov-NCT06993610-2026-10-22", "edgar-companyfacts-CIK0001855644-2026-10-22", "edgar-submissions-CIK0001855644-2026-10-22"] });
     printReport(r2);
     process.exit(0);
   }

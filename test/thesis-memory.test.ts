@@ -103,3 +103,28 @@ describe("ThesisMemory on H-MEM", () => {
     expect(() => mem.hmem.add({ content: "unsourced claim", source: "" })).toThrow();
   });
 });
+
+describe("EDGAR extraction", () => {
+  const FACTS = "edgar-companyfacts-CIK0001855644-2026-10-22";
+  const SUBS = "edgar-submissions-CIK0001855644-2026-10-22";
+
+  it("cash balance claims carry period, form and verifiable XBRL spans", () => {
+    const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
+    const report = analyzeFixture(FIXTURE, mem, { documentIds: [FACTS] });
+    expect(report.rejected).toHaveLength(0);
+    const q2 = report.results.find((r) => r.sentence.includes("as of 2026-06-30"))!;
+    expect(q2.sentence).toContain("$205.1M");
+    expect(q2.sentence).toContain("10-Q");
+    expect(q2.action).toBe("created");
+    // distinct periods are distinct subjects: no false supersession across quarters
+    expect(report.results.filter((r) => r.action === "updated")).toHaveLength(0);
+  });
+
+  it("filing events extract from the submissions API with accession provenance", () => {
+    const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
+    const report = analyzeFixture(FIXTURE, mem, { documentIds: [SUBS] });
+    expect(report.rejected).toHaveLength(0);
+    expect(report.verified).toBeGreaterThanOrEqual(3);
+    expect(report.results.some((r) => r.sentence.includes("10-Q"))).toBe(true);
+  });
+});

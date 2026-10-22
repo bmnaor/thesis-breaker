@@ -34,6 +34,17 @@
       "sha256": "e8062990a2750cba821e6a6092231b522bdd13b052afbb0fd597ffd817e873c7",
       "synthetic": false,
       "note": "Real EDGAR submissions API capture for Zura Bio Ltd (CIK 1855644)"
+    },
+    {
+      "documentId": "edgar-companyfacts-CIK0001855644-2026-10-22",
+      "path": "raw/edgar-companyfacts-CIK0001855644-2026-10-22.json",
+      "canonicalUrl": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001855644.json",
+      "publisher": "U.S. Securities and Exchange Commission",
+      "sourceClass": "issuer_filing",
+      "retrievedAt": "2026-10-22T17:37:00Z",
+      "sha256": "47950ff9282f72a32c97775307b531bb0b39c93e05f1d8cacf9345df2cccbf57",
+      "synthetic": false,
+      "note": "Real EDGAR XBRL companyfacts capture for Zura Bio Ltd (CIK 1855644)"
     }
   ]
 }
