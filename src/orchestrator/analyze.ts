@@ -10,12 +10,14 @@ import { extractCompanyFactsClaims, extractFilingEventClaims } from "../claims/e
 import { extractMechanismClaims } from "../claims/pubmedExtract.ts";
 import { extractIssuerReleaseClaims } from "../claims/irExtract.ts";
 import { assignFamilies } from "../claims/originFamily.ts";
+import { extractClaimsWithModel } from "../claims/llmExtract.ts";
+import type { NebiusClient } from "../models/nebius.ts";
 import { ThesisMemory, type RecordResult } from "../memory/thesisMemory.ts";
 
 export interface RunReport {
   runAt: string;
   fixtureDir: string;
-  mode: "SAMPLE";
+  mode: "SAMPLE" | "LIVE";
   documents: number;
   extracted: number;
   verified: number;
@@ -25,7 +27,14 @@ export interface RunReport {
   manifest: { memories: number; ledgerEntries: number; byAction: Record<string, number> };
 }
 
-export function analyzeFixture(fixtureDir: string, memory: ThesisMemory, opts?: { logDir?: string; documentIds?: string[]; symbol?: string }): RunReport {
+export interface AnalyzeOptions {
+  logDir?: string;
+  documentIds?: string[];
+  symbol?: string;
+  llm?: { client: NebiusClient; model: string }; // LIVE mode: model proposes, verifier disposes
+}
+
+export async function analyzeFixture(fixtureDir: string, memory: ThesisMemory, opts?: AnalyzeOptions): Promise<RunReport> {
   let docs = loadDocuments(fixtureDir);
   if (opts?.documentIds) docs = docs.filter((d) => opts.documentIds!.includes(d.ref.documentId));
   const results: RecordResult[] = [];
@@ -40,6 +49,12 @@ export function analyzeFixture(fixtureDir: string, memory: ThesisMemory, opts?: 
     let claims;
     if (doc.ref.sourceClass === "registry" && doc.ref.canonicalUrl.includes("clinicaltrials.gov")) {
       claims = extractRegistryClaims(doc);
+    } else if ((doc.ref.sourceClass === "issuer_release" || doc.ref.sourceClass === "reporting") && opts?.llm) {
+      const out = await extractClaimsWithModel(opts.llm.client, opts.llm.model, doc);
+      claims = out.claims;
+      for (const r of out.rejected) {
+        rejected.push({ sentence: `${r.candidate.subject}: ${r.candidate.object} (${r.candidate.predicate})`, reason: `model candidate rejected - ${r.reason}` });
+      }
     } else if (doc.ref.sourceClass === "issuer_release") {
       claims = extractIssuerReleaseClaims(doc, "tibulizumab", "TibuSHIELD");
     } else if (doc.ref.sourceClass === "peer_reviewed") {
@@ -67,7 +82,7 @@ export function analyzeFixture(fixtureDir: string, memory: ThesisMemory, opts?: 
   const report: RunReport = {
     runAt: new Date(memory.hmem.clock()).toISOString(),
     fixtureDir,
-    mode: "SAMPLE",
+    mode: opts?.llm ? "LIVE" : "SAMPLE",
     documents: docs.length,
     extracted,
     verified: results.length,

@@ -66,9 +66,18 @@ vendored engine (`vendor/hmem-conformance`): **13/13 checks pass.**
   `NEBIUS_API_KEY=... npx tsx src/orchestrator/liveJudge.ts` classifies the
   RECRUITING -> ACTIVE_NOT_RECRUITING pair as an update (eval gold #9).
 
-Named gaps (honest roadmap): LLM free-text extraction on Nebius (judge path is
-live, extractor path pending), Tavily search connector for reporting discovery,
-Zetaris SQL evidence mart, web UI, Docker.
+LIVE mode (`--live`, needs `NEBIUS_API_KEY`): issuer/reporting documents are
+extracted by Qwen3-30B on Nebius instead of the deterministic path. The model
+proposes candidates as strict JSON; the same deterministic verifier accepts
+only verbatim-quoted claims and rejects the rest, visibly. Real 22.10 live run
+(`samples/05-analyze-live.txt`): 42 claims, 3 candidates rejected, guidance
+update Q3->Q4-2026 tracked as a supersedes edge, runway statement ("through at
+least end of 2028") extracted from the issuer outlook release.
+
+Named gaps (honest roadmap): subject alias normalization across releases
+("Zura Bio" vs "Zura Bio Limited" currently form separate update slots),
+Tavily search -> reporting connector automated ingest (today: manual freeze),
+Zetaris SQL evidence mart, web UI.
 
 ## Stack note
 

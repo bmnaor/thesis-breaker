@@ -71,9 +71,16 @@ export function candidatesToClaims(
     const asOf = c.date && /^\d{4}-\d{2}-\d{2}/.test(c.date) ? c.date.slice(0, 10) : doc.ref.retrievedAt.slice(0, 10);
     const subject = c.subject.trim().toLowerCase();
     const object = String(c.object).trim();
+    // Descriptive predicates are per-document snapshots (two releases may
+    // phrase the same mechanism differently); status predicates carry the
+    // update/supersede semantics.
+    const DESCRIPTIVE = ["mechanism_targets", "endpoint_definition", "management_statement"];
+    const slotKey = DESCRIPTIVE.includes(c.predicate)
+      ? `${subject}|${c.predicate}|${doc.ref.documentId}`
+      : `${subject}|${c.predicate}`;
     claims.push({
       claimKey: `${subject}|${c.predicate}|${object.toLowerCase()}|${doc.ref.documentId}`,
-      slotKey: `${subject}|${c.predicate}`,
+      slotKey,
       subject,
       predicate: c.predicate as Predicate,
       object,

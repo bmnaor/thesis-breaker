@@ -28,9 +28,9 @@ afterEach(() => {
 });
 
 describe("ThesisMemory on H-MEM", () => {
-  it("run 1: extracts verified claims from a frozen registry doc and records them", () => {
+  it("run 1: extracts verified claims from a frozen registry doc and records them", async () => {
     const mem = new ThesisMemory({ persistDir: dir, clock: () => T0 });
-    const report = analyzeFixture(FIXTURE, mem, { documentIds: [OLDER] });
+    const report = await analyzeFixture(FIXTURE, mem, { documentIds: [OLDER] });
     expect(report.rejected).toHaveLength(0);
     expect(report.verified).toBeGreaterThanOrEqual(5);
     expect(report.results.every((r) => r.action === "created")).toBe(true);
@@ -38,11 +38,11 @@ describe("ThesisMemory on H-MEM", () => {
     expect(report.manifest.byAction.create).toBe(report.verified);
   });
 
-  it("run 2: a newer registry state supersedes the old - update, never contradiction or duplicate", () => {
+  it("run 2: a newer registry state supersedes the old - update, never contradiction or duplicate", async () => {
     const mem = new ThesisMemory({ persistDir: dir, clock: () => T0 });
-    analyzeFixture(FIXTURE, mem, { documentIds: [OLDER] });
+    await analyzeFixture(FIXTURE, mem, { documentIds: [OLDER] });
     const mem2 = new ThesisMemory({ persistDir: dir, clock: () => T1 }); // reopen: state survived restart
-    const report = analyzeFixture(FIXTURE, mem2, { documentIds: [CURRENT] });
+    const report = await analyzeFixture(FIXTURE, mem2, { documentIds: [CURRENT] });
 
     const status = report.results.find((r) => r.sentence.includes("overall status"))!;
     expect(status.action).toBe("updated");
@@ -59,19 +59,19 @@ describe("ThesisMemory on H-MEM", () => {
     expect(mem2.audit(newMem.id).map((e) => e.action)).toContain("create");
   });
 
-  it("echo dedupe: re-recording the identical claim is one memory, not a second confirmation", () => {
+  it("echo dedupe: re-recording the identical claim is one memory, not a second confirmation", async () => {
     const mem = new ThesisMemory({ persistDir: dir, clock: () => T0 });
-    analyzeFixture(FIXTURE, mem, { documentIds: [CURRENT] });
-    const report = analyzeFixture(FIXTURE, mem, { documentIds: [CURRENT] });
+    await analyzeFixture(FIXTURE, mem, { documentIds: [CURRENT] });
+    const report = await analyzeFixture(FIXTURE, mem, { documentIds: [CURRENT] });
     expect(report.results.every((r) => r.action === "duplicate")).toBe(true);
     expect(report.manifest.memories).toBe(report.verified); // count did not grow
   });
 
-  it("recall ranks the current status above the superseded one and explains itself", () => {
+  it("recall ranks the current status above the superseded one and explains itself", async () => {
     const mem = new ThesisMemory({ persistDir: dir, clock: () => T0 });
-    analyzeFixture(FIXTURE, mem, { documentIds: [OLDER] });
+    await analyzeFixture(FIXTURE, mem, { documentIds: [OLDER] });
     const mem2 = new ThesisMemory({ persistDir: dir, clock: () => T1 });
-    analyzeFixture(FIXTURE, mem2, { documentIds: [CURRENT] });
+    await analyzeFixture(FIXTURE, mem2, { documentIds: [CURRENT] });
 
     const res = mem2.recall("NCT06993610 overall recruitment status");
     const contents = res.memories.map((m) => m.memory.content);
@@ -83,18 +83,18 @@ describe("ThesisMemory on H-MEM", () => {
     expect(res.context).toContain("[MEMORY CONTEXT]");
   });
 
-  it("memory persists across restarts: tomorrow's run still remembers", () => {
+  it("memory persists across restarts: tomorrow's run still remembers", async () => {
     const mem = new ThesisMemory({ persistDir: dir, clock: () => T0 });
-    analyzeFixture(FIXTURE, mem, { documentIds: [CURRENT] });
+    await analyzeFixture(FIXTURE, mem, { documentIds: [CURRENT] });
     const fresh = new ThesisMemory({ persistDir: dir, clock: () => T1 }); // brand-new process view
     expect(fresh.manifest().memories).toBeGreaterThanOrEqual(5);
     const res = fresh.recall("TibuSHIELD enrollment");
     expect(res.memories.length).toBeGreaterThan(0);
   });
 
-  it("every memory record carries mandatory source + provenance (engine rejects sourceless writes)", () => {
+  it("every memory record carries mandatory source + provenance (engine rejects sourceless writes)", async () => {
     const mem = new ThesisMemory({ persistDir: dir, clock: () => T0 });
-    analyzeFixture(FIXTURE, mem, { documentIds: [CURRENT] });
+    await analyzeFixture(FIXTURE, mem, { documentIds: [CURRENT] });
     for (const m of mem.hmem.store.all()) {
       expect(m.source).toMatch(/^https:\/\//);
       expect(m.provenance.label).toBeTruthy();
@@ -110,9 +110,9 @@ describe("EDGAR extraction", () => {
   const FACTS = "edgar-companyfacts-CIK0001855644-2026-10-22";
   const SUBS = "edgar-submissions-CIK0001855644-2026-10-22";
 
-  it("cash balance claims carry period, form and verifiable XBRL spans", () => {
+  it("cash balance claims carry period, form and verifiable XBRL spans", async () => {
     const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
-    const report = analyzeFixture(FIXTURE, mem, { documentIds: [FACTS] });
+    const report = await analyzeFixture(FIXTURE, mem, { documentIds: [FACTS] });
     expect(report.rejected).toHaveLength(0);
     const q2 = report.results.find((r) => r.sentence.includes("as of 2026-06-30"))!;
     expect(q2.sentence).toContain("$205.1M");
@@ -122,9 +122,9 @@ describe("EDGAR extraction", () => {
     expect(report.results.filter((r) => r.action === "updated")).toHaveLength(0);
   });
 
-  it("filing events extract from the submissions API with accession provenance", () => {
+  it("filing events extract from the submissions API with accession provenance", async () => {
     const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
-    const report = analyzeFixture(FIXTURE, mem, { documentIds: [SUBS] });
+    const report = await analyzeFixture(FIXTURE, mem, { documentIds: [SUBS] });
     expect(report.rejected).toHaveLength(0);
     expect(report.verified).toBeGreaterThanOrEqual(3);
     expect(report.results.some((r) => r.sentence.includes("10-Q"))).toBe(true);
@@ -132,10 +132,10 @@ describe("EDGAR extraction", () => {
 });
 
 describe("out-of-order sources", () => {
-  it("an older registry state arriving AFTER the newer one never rewrites the present", () => {
+  it("an older registry state arriving AFTER the newer one never rewrites the present", async () => {
     const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
-    analyzeFixture(FIXTURE, mem, { documentIds: [CURRENT] });
-    analyzeFixture(FIXTURE, mem, { documentIds: [OLDER] }); // late-arriving history
+    await analyzeFixture(FIXTURE, mem, { documentIds: [CURRENT] });
+    await analyzeFixture(FIXTURE, mem, { documentIds: [OLDER] }); // late-arriving history
     const res = mem.recall("NCT06993610 overall status");
     const top = res.memories[0].memory;
     expect(top.content).toContain("ACTIVE_NOT_RECRUITING");
@@ -145,9 +145,9 @@ describe("out-of-order sources", () => {
 });
 
 describe("PubMed mechanism evidence", () => {
-  it("extracts dual-target mechanism claims with verifiable char spans", () => {
+  it("extracts dual-target mechanism claims with verifiable char spans", async () => {
     const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
-    const report = analyzeFixture(FIXTURE, mem, { documentIds: ["pubmed-tibulizumab-efetch-2026-10-22"] });
+    const report = await analyzeFixture(FIXTURE, mem, { documentIds: ["pubmed-tibulizumab-efetch-2026-10-22"] });
     expect(report.rejected).toHaveLength(0);
     const mech = report.results.filter((r) => r.sentence.includes("targeting"));
     expect(mech.length).toBeGreaterThanOrEqual(1);
@@ -158,9 +158,9 @@ describe("PubMed mechanism evidence", () => {
 });
 
 describe("Issuer release extraction", () => {
-  it("captures the dual-mechanism statement and launch event, labeled issuer assertions", () => {
+  it("captures the dual-mechanism statement and launch event, labeled issuer assertions", async () => {
     const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
-    const report = analyzeFixture(FIXTURE, mem, { documentIds: ["zurabio-tibushield-launch-2025-05-20"] });
+    const report = await analyzeFixture(FIXTURE, mem, { documentIds: ["zurabio-tibushield-launch-2025-05-20"] });
     expect(report.rejected).toHaveLength(0);
     const mech = report.results.find((r) => r.sentence.includes("dual inhibition"))!;
     expect(mech.sentence).toContain("BAFF");
@@ -169,7 +169,7 @@ describe("Issuer release extraction", () => {
     expect(launch.sentence).toContain("2025-05-20");
     // issuer mechanism claim and PubMed mechanism claim are independent source classes
     const pub = new ThesisMemory({ persistDir: dir, clock: () => T1 });
-    analyzeFixture(FIXTURE, pub, { documentIds: ["pubmed-tibulizumab-efetch-2026-10-22"] });
+    await analyzeFixture(FIXTURE, pub, { documentIds: ["pubmed-tibulizumab-efetch-2026-10-22"] });
     const classes = new Set(mem.hmem.store.all().concat(pub.hmem.store.all()).map((m) => m.tags.find((t) => t.startsWith("class:"))));
     expect(classes.has("class:issuer_release")).toBe(true);
     expect(classes.has("class:peer_reviewed")).toBe(true);
@@ -195,9 +195,9 @@ describe("origin families (eval gold #10)", () => {
     expect(fams.familyOf.get(CURRENT)).toBe(CURRENT);
   });
 
-  it("independence counting: echoed mechanism claims count as one family, not three confirmations", () => {
+  it("independence counting: echoed mechanism claims count as one family, not three confirmations", async () => {
     const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
-    analyzeFixture(FIXTURE, mem, { documentIds: [RELEASE, ...ECHOES, "pubmed-tibulizumab-efetch-2026-10-22"] });
+    await analyzeFixture(FIXTURE, mem, { documentIds: [RELEASE, ...ECHOES, "pubmed-tibulizumab-efetch-2026-10-22"] });
     const families = new Set(
       mem.hmem.store.all().map((m) => m.tags.find((t) => t.startsWith("family:"))?.slice(7))
     );

@@ -4,6 +4,14 @@ import fs from "node:fs";
 import { ThesisMemory } from "./memory/thesisMemory.ts";
 import { analyzeFixture } from "./orchestrator/analyze.ts";
 import { composeBrief, renderBrief } from "./brief/compose.ts";
+import { NebiusClient } from "./models/nebius.ts";
+
+const llmOpt = () => {
+  const key = process.env.NEBIUS_API_KEY;
+  if (!args.includes("--live")) return undefined;
+  if (!key) { console.error("--live needs NEBIUS_API_KEY"); process.exit(1); }
+  return { client: new NebiusClient(key), model: process.env.MODEL_EXTRACTOR || "Qwen/Qwen3-30B-A3B-Instruct-2507" };
+};
 
 const [cmd, ...args] = process.argv.slice(2);
 
@@ -30,21 +38,21 @@ if (cmd === "analyze" || cmd === "demo") {
   const memory = new ThesisMemory({ persistDir: memoryDir });
   if (cmd === "demo" && !opt("fixture")) {
     console.log("Phase 1 - simulated earlier retrieval (synthetic older registry snapshot, labeled synthetic):");
-    const r1 = analyzeFixture(fixtureDir, memory, { logDir: "logs", documentIds: ["ctgov-NCT06993610-older-RECRUITING-synthetic"] });
+    const r1 = await analyzeFixture(fixtureDir, memory, { logDir: "logs", documentIds: ["ctgov-NCT06993610-older-RECRUITING-synthetic"] });
     printReport(r1);
     console.log("\nPhase 2 - today's real capture (2026-10-22):");
-    const r2 = analyzeFixture(fixtureDir, memory, { logDir: "logs", documentIds: ["ctgov-NCT06993610-2026-10-22", "edgar-companyfacts-CIK0001855644-2026-10-22", "edgar-submissions-CIK0001855644-2026-10-22"] });
+    const r2 = await analyzeFixture(fixtureDir, memory, { logDir: "logs", documentIds: ["ctgov-NCT06993610-2026-10-22", "edgar-companyfacts-CIK0001855644-2026-10-22", "edgar-submissions-CIK0001855644-2026-10-22"] });
     printReport(r2);
     process.exit(0);
   }
-  const report = analyzeFixture(fixtureDir, memory, { logDir: "logs" });
+  const report = await analyzeFixture(fixtureDir, memory, { logDir: "logs", llm: llmOpt() });
   console.log(`\nThesis Breaker run (${report.mode}) at ${report.runAt}`);
   printReport(report);
 } else if (cmd === "brief") {
   const fixtureDir = opt("fixture", "fixtures/zura-2026-10-22")!;
   const symbol = args.find((a) => !a.startsWith("--")) ?? "ZURA";
   const memory = new ThesisMemory({ persistDir: memoryDir });
-  const report = analyzeFixture(fixtureDir, memory, { logDir: "logs" });
+  const report = await analyzeFixture(fixtureDir, memory, { logDir: "logs", llm: llmOpt() });
   const brief = composeBrief(memory, symbol, report.runAt);
   console.log(renderBrief(brief));
 } else if (cmd === "recall") {

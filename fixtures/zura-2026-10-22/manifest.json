@@ -100,6 +100,28 @@
       "sha256": "3dd3ea78e640c061cd84345e6acb7a0dfc8153b199f507564289daf1f53dfdb7",
       "synthetic": true,
       "note": "SYNTHETIC commentary page quoting the issuer release verbatim, for origin-family/independence testing (eval gold #10). Not a real publication."
+    },
+    {
+      "documentId": "zurabio-outlook-2026-01-12",
+      "path": "raw/zurabio-outlook-2026-01-12.md",
+      "canonicalUrl": "https://investors.zurabio.com/news-releases/news-release-details/zura-bio-reports-business-updates-and-outlook-2026",
+      "publisher": "Zura Bio Ltd (issuer IR)",
+      "sourceClass": "issuer_release",
+      "retrievedAt": "2026-10-22T20:18:00Z",
+      "sha256": "bc56820d231206d3168fd69d463d9571603c455ef0ee89c90c7700b6d793ceb5",
+      "synthetic": false,
+      "note": "Issuer 2026 outlook via Tavily Extract: runway statement + Q4-2026 topline guidance"
+    },
+    {
+      "documentId": "zurabio-exceeds-enrollment-2026-06-29",
+      "path": "raw/zurabio-exceeds-enrollment-2026-06-29.md",
+      "canonicalUrl": "https://investors.zurabio.com/news-releases/news-release-details/zura-bio-exceeds-enrollment-target-both-hidradenitis-suppurativa",
+      "publisher": "Zura Bio Ltd (issuer IR)",
+      "sourceClass": "issuer_release",
+      "retrievedAt": "2026-10-22T20:18:00Z",
+      "sha256": "87957215a417bd3be0a2d4edf71182201ea981ce9a5bb561a1ec4bbdcd452be1",
+      "synthetic": false,
+      "note": "Issuer enrollment-complete release via Tavily Extract (247 randomized, topline Q4 2026)"
     }
   ]
 }
