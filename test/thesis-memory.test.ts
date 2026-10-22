@@ -141,3 +141,16 @@ describe("out-of-order sources", () => {
     expect(old.supersededBy).toBeTruthy(); // history kept, penalized
   });
 });
+
+describe("PubMed mechanism evidence", () => {
+  it("extracts dual-target mechanism claims with verifiable char spans", () => {
+    const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
+    const report = analyzeFixture(FIXTURE, mem, { documentIds: ["pubmed-tibulizumab-efetch-2026-10-22"] });
+    expect(report.rejected).toHaveLength(0);
+    const mech = report.results.filter((r) => r.sentence.includes("targeting"));
+    expect(mech.length).toBeGreaterThanOrEqual(1);
+    expect(mech[0].sentence).toContain("IL-17A");
+    expect(mech[0].sentence).toContain("BAFF");
+    expect(mech[0].sentence).toContain("PMID");
+  });
+});

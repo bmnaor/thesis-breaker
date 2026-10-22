@@ -45,6 +45,17 @@
       "sha256": "47950ff9282f72a32c97775307b531bb0b39c93e05f1d8cacf9345df2cccbf57",
       "synthetic": false,
       "note": "Real EDGAR XBRL companyfacts capture for Zura Bio Ltd (CIK 1855644)"
+    },
+    {
+      "documentId": "pubmed-tibulizumab-efetch-2026-10-22",
+      "path": "raw/pubmed-tibulizumab-efetch-2026-10-22.xml",
+      "canonicalUrl": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=33123125,31181988&rettype=abstract&retmode=xml",
+      "publisher": "NCBI PubMed",
+      "sourceClass": "peer_reviewed",
+      "retrievedAt": "2026-10-22T17:40:00Z",
+      "sha256": "2ab2c34bc2f0b391d6ee43d585d4674065d19641e46085f7390d579dc56310f1",
+      "synthetic": false,
+      "note": "Real efetch capture, PMIDs from esearch 'tibulizumab' (count=2)"
     }
   ]
 }

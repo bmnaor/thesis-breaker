@@ -7,6 +7,7 @@ import path from "node:path";
 import { loadDocuments } from "../connectors/fixture.ts";
 import { extractRegistryClaims, verifySpan } from "../claims/registryExtract.ts";
 import { extractCompanyFactsClaims, extractFilingEventClaims } from "../claims/edgarExtract.ts";
+import { extractMechanismClaims } from "../claims/pubmedExtract.ts";
 import { ThesisMemory, type RecordResult } from "../memory/thesisMemory.ts";
 
 export interface RunReport {
@@ -35,6 +36,8 @@ export function analyzeFixture(fixtureDir: string, memory: ThesisMemory, opts?: 
     let claims;
     if (doc.ref.sourceClass === "registry" && doc.ref.canonicalUrl.includes("clinicaltrials.gov")) {
       claims = extractRegistryClaims(doc);
+    } else if (doc.ref.sourceClass === "peer_reviewed") {
+      claims = extractMechanismClaims(doc, "tibulizumab", ["IL-17A", "BAFF"]);
     } else if (doc.ref.canonicalUrl.includes("companyfacts")) {
       claims = extractCompanyFactsClaims(doc, symbol);
     } else if (doc.ref.canonicalUrl.includes("data.sec.gov/submissions")) {

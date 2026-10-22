@@ -25,6 +25,7 @@ function get(obj: unknown, path: string[]): unknown {
 
 // Verify a span's quote still re-selects from the source document.
 export function verifySpan(doc: FrozenDocument, s: EvidenceSpan): boolean {
+  if (s.locatorType === "char") return doc.text.includes(s.quote);
   if (s.locatorType !== "json_pointer" || !s.pointer) return false;
   const parts = s.pointer.split("/").filter(Boolean);
   const value = get(JSON.parse(doc.text), parts);
