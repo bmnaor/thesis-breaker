@@ -32,4 +32,4 @@ Docker. AI-assisted build; spec drafted before the hackathon window;
 synthetic fixture documents are labeled.
 
 Repo: https://github.com/bmnaor/thesis-breaker
-Demo video: (2:45, to be recorded per docs/demo-script.md)
+Demo video: (2:14 captioned walkthrough of captured outputs - see docs/demo-script.md; review pending before any upload)
