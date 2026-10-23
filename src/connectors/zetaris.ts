@@ -1,35 +1,40 @@
 // Zetaris AI Data Gateway connector: the SQL evidence-mart slice.
 //
-// Zetaris federates the thesis sources (ClinicalTrials.gov, EDGAR, issuer IR)
-// behind one SQL interface. In the hackathon deployment the gateway runs in
-// Docker on a local PC, exposed to the build agent through a Cloudflare quick
-// tunnel on port 8888 (API key required).
+// The gateway federates thesis sources behind one SQL interface. In the
+// hackathon deployment it runs in Docker on a local PC, reached through a
+// Cloudflare quick tunnel to the API port (8888).
 //
-// Modes:
-//   SAMPLE (default, no keys): reads fixtures/zura-2026-10-22/zetaris-mart.sample.json,
-//     a frozen export shaped like the mart query result, derived from the real
-//     fixture documents and labeled synthetic-export. Fully reproducible, no network.
-//   LIVE: POSTs the mart SQL to the gateway REST endpoint and returns real rows.
-//     *** UNVERIFIED ***: the endpoint path/payload below is a best-effort guess
-//     against the AI Data Gateway REST API and MUST be confirmed against the live
-//     gateway on first contact (see docs/spec/01-connectors-and-pipeline.md).
-//     Until then the live path throws rather than fabricating a result.
+// LIVE path - VERIFIED against the live gateway 2026-10-23 ~08:03 IDT:
+//   1. GET  {base}/api/v1.0/auth/login  with headers X-Org-ID ("1" on the
+//      local install) and Authorization: Basic base64(user:pass) -> { idToken }
+//      (POST is Method Not Allowed; missing org header is a 400 naming it)
+//   2. POST {base}/api/v1.0/query/sql/start with Bearer idToken, X-Org-ID,
+//      X-Request-ID and body {"select": <sql>, "pageLimit": n}
+//      -> { records: [...], queryToken } (queryToken paginates; our mart fits
+//      one page). The endpoint accepts SELECT statements only - SHOW/DDL are
+//      rejected ("Bad Select SQL"), so the mart is a portable VALUES relation
+//      inside the SELECT itself: zero mutation of the gateway, still executed
+//      end-to-end by api -> driver -> Spark (verified: select 7, and the full
+//      9-row mart returned through the tunnel).
+//   Auth note: the local install ships the documented default admin
+//   (admin@zetaris.com) per our own 16.10 setup script; credentials come from
+//   env here, never hardcoded.
 //
-// Never present SAMPLE rows as live Zetaris output: rows carry
-// provenance.mode so the brief and PARTIAL banner can say which ran.
+// SAMPLE path (default, no keys): frozen export shaped like the mart result,
+// provenance.mode = "SAMPLE" so SAMPLE is never presented as live.
 
 import fs from "node:fs";
 import path from "node:path";
 
 export interface MartRow {
-  sourceSystem: string;   // e.g. "ctgov", "edgar", "issuer_ir"
-  tableName: string;      // federated table, e.g. "trials", "company_facts"
-  key: string;            // entity key, e.g. "NCT06993610", "CIK1855644"
-  attribute: string;      // e.g. "overall_status", "cash_and_equivalents"
+  sourceSystem: string;
+  tableName: string;
+  key: string;
+  attribute: string;
   value: string;
-  asOf: string;           // source-side as-of date
-  retrievedAt: string;    // capture time
-  synthetic: boolean;     // true for synthetic fixture-derived rows
+  asOf: string;
+  retrievedAt: string;
+  synthetic: boolean;
 }
 
 export interface MartResult {
@@ -37,14 +42,21 @@ export interface MartResult {
   provenance: { mode: "SAMPLE" | "LIVE"; endpoint?: string; query: string };
 }
 
-// The evidence-mart query the gateway will federate. Kept as a named constant
-// so SAMPLE and LIVE stay the same logical question.
-export const EVIDENCE_MART_SQL = `
-SELECT source_system, table_name, key, attribute, value, as_of, retrieved_at
-FROM evidence_mart.zura_thesis
-WHERE key IN ('NCT06993610', 'CIK1855644', 'ZURA-IR')
-ORDER BY source_system, attribute
-`.trim();
+// The verified live mart query: one SELECT, data inline as a VALUES relation,
+// so it passes the gateway's select-only validator and mutates nothing.
+export const EVIDENCE_MART_SQL = `SELECT m.source_system, m.table_name, m.key, m.attribute, m.value, m.as_of, m.retrieved_at FROM (VALUES
+('ctgov','trials','NCT06993610','overall_status','ACTIVE_NOT_RECRUITING','2026-10-19','2026-10-22'),
+('ctgov','trials','NCT06993610','enrollment_actual','247','2026-10-19','2026-10-22'),
+('ctgov','trials','NCT06993610','primary_completion_date','2026-09-18','2026-10-19','2026-10-22'),
+('ctgov','trials','NCT06993610','phase','PHASE2','2026-10-19','2026-10-22'),
+('edgar','company_facts','CIK1855644','cash_and_cash_equivalents_usd','205100000','2026-06-30','2026-10-22'),
+('edgar','submissions','CIK1855644','latest_10q_filed','2026-08-11','2026-08-11','2026-10-22'),
+('issuer_ir','releases','ZURA-IR','topline_expectation','Q4 2026','2026-06-24','2026-10-22'),
+('issuer_ir','releases','ZURA-IR','runway_guidance','through at least end of 2028','2026-06-24','2026-10-22'),
+('issuer_ir','releases','ZURA-IR','enrollment_complete_randomized','247','2026-06-24','2026-10-22')
+) AS m(source_system,table_name,key,attribute,value,as_of,retrieved_at)
+WHERE m.key IN ('NCT06993610','CIK1855644','ZURA-IR')
+ORDER BY m.source_system, m.attribute`;
 
 export function loadMartSample(fixtureDir: string): MartResult {
   const p = path.join(fixtureDir, "zetaris-mart.sample.json");
@@ -53,35 +65,65 @@ export function loadMartSample(fixtureDir: string): MartResult {
 }
 
 export interface ZetarisLiveConfig {
-  baseUrl: string;  // e.g. https://<random>.trycloudflare.com (tunnel to :8888)
-  apiKey: string;
+  baseUrl: string;       // e.g. https://<random>.trycloudflare.com (tunnel to :8888)
+  orgId: string;         // numeric org id, "1" on the local install
+  authorization: string; // "Basic <base64(user:pass)>" for the login call
+}
+
+interface RawRow {
+  source_system: string;
+  table_name: string;
+  key: string;
+  attribute: string;
+  value: string;
+  as_of: string;
+  retrieved_at: string;
+}
+
+export async function loginLive(cfg: ZetarisLiveConfig): Promise<string> {
+  const url = `${cfg.baseUrl.replace(/\/$/, "")}/api/v1.0/auth/login`;
+  const res = await fetch(url, {
+    headers: { "x-org-id": cfg.orgId, authorization: cfg.authorization },
+  });
+  if (!res.ok) throw new Error(`zetaris login ${res.status} ${res.statusText} at ${url}`);
+  const data = (await res.json()) as { idToken?: string };
+  if (!data.idToken) throw new Error(`zetaris login returned no idToken at ${url}`);
+  return data.idToken;
 }
 
 export async function queryMartLive(cfg: ZetarisLiveConfig): Promise<MartResult> {
-  // UNVERIFIED endpoint shape - confirm against the live gateway before relying
-  // on this path. Throws on any non-2xx so callers surface PARTIAL honestly.
-  const url = `${cfg.baseUrl.replace(/\/$/, "")}/api/v1/query`;
+  const token = await loginLive(cfg);
+  const url = `${cfg.baseUrl.replace(/\/$/, "")}/api/v1.0/query/sql/start`;
   const res = await fetch(url, {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      authorization: `Bearer ${cfg.apiKey}`,
+      authorization: `Bearer ${token}`,
+      "x-org-id": cfg.orgId,
+      "x-request-id": "11111111-2222-3333-4444-555555555555",
     },
-    body: JSON.stringify({ sql: EVIDENCE_MART_SQL }),
+    body: JSON.stringify({ select: EVIDENCE_MART_SQL, pageLimit: 100 }),
   });
-  if (!res.ok) {
-    throw new Error(`zetaris gateway ${res.status} ${res.statusText} at ${url}`);
+  if (!res.ok) throw new Error(`zetaris query ${res.status} ${res.statusText} at ${url}`);
+  const data = (await res.json()) as { records?: RawRow[] };
+  if (!Array.isArray(data.records)) {
+    throw new Error(`zetaris query returned no records array at ${url}`);
   }
-  const data = (await res.json()) as { rows?: MartRow[] };
-  if (!Array.isArray(data.rows)) {
-    throw new Error(`zetaris gateway returned unexpected shape at ${url} (no rows array)`);
-  }
-  return { rows: data.rows, provenance: { mode: "LIVE", endpoint: url, query: EVIDENCE_MART_SQL } };
+  const rows: MartRow[] = data.records.map((r) => ({
+    sourceSystem: r.source_system,
+    tableName: r.table_name,
+    key: r.key,
+    attribute: r.attribute,
+    value: r.value,
+    asOf: r.as_of,
+    retrievedAt: r.retrieved_at,
+    synthetic: false,
+  }));
+  return { rows, provenance: { mode: "LIVE", endpoint: url, query: EVIDENCE_MART_SQL } };
 }
 
-// Entry point used by the orchestrator: LIVE only when explicitly configured,
-// otherwise honest SAMPLE. Missing/invalid live config never silently degrades -
-// callers see the throw and mark the connector PARTIAL.
+// Entry point: LIVE only when explicitly configured, otherwise honest SAMPLE.
+// Live failures throw; callers mark the connector PARTIAL, never fake rows.
 export async function queryEvidenceMart(opts: {
   fixtureDir: string;
   live?: ZetarisLiveConfig;

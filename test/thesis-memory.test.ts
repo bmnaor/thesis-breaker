@@ -241,7 +241,7 @@ describe("zetaris evidence-mart connector", () => {
   it("LIVE mode surfaces gateway errors instead of fabricating rows", async () => {
     const { queryEvidenceMart } = await import("../src/connectors/zetaris.ts");
     await expect(
-      queryEvidenceMart({ fixtureDir: FIXTURE, live: { baseUrl: "http://127.0.0.1:1", apiKey: "x" } })
+      queryEvidenceMart({ fixtureDir: FIXTURE, live: { baseUrl: "http://127.0.0.1:1", orgId: "1", authorization: "Basic eA==" } })
     ).rejects.toThrow();
   });
 });

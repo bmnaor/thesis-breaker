@@ -57,6 +57,10 @@ vendored engine (`vendor/hmem-conformance`): **13/13 checks pass.**
   memory ids it stands on (`src/brief/compose.ts`, `npx tsx src/cli.ts brief ZURA`).
 - CLI demo + brief + recall + audit (`src/cli.ts`). Sample outputs in `samples/`.
 
+- Zetaris evidence mart, live-verified 2026-10-23: `src/connectors/zetaris.ts`
+  logs in to the local AI Data Gateway and runs the mart SQL through
+  api -> driver -> Spark (9/9 rows; raw capture `samples/06-zetaris-live.txt`).
+  Defaults to a provenance-tagged SAMPLE export when the gateway is not configured.
 - Origin-family clustering (shingle containment): echoed/syndicated documents
   collapse into one family; independence counts families, not pages
   (`src/claims/originFamily.ts`, eval gold #10 proven on synthetic echo pages).

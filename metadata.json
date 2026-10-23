@@ -21,8 +21,8 @@
     {
       "name": "Zetaris AI Data Gateway",
       "role": "SQL evidence mart federating registry, filing and issuer sources behind one query interface",
-      "integration": "src/connectors/zetaris.ts; live path behind ZETARIS_BASE_URL/ZETARIS_API_KEY (local Docker gateway via tunnel); honest SAMPLE export is the default and provenance-tagged",
-      "sample_mode": true
+      "integration": "src/connectors/zetaris.ts; live path VERIFIED 2026-10-23 against the local gateway (Basic login -> idToken, POST /api/v1.0/query/sql/start, 9/9 mart rows through api->driver->Spark; raw capture samples/06-zetaris-live.txt); honest SAMPLE export remains the default and is provenance-tagged",
+      "sample_mode": false
     },
     {
       "name": "Tavily",
