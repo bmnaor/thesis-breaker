@@ -41,6 +41,17 @@ Rules:
 - Reply with a strict JSON array only. No prose, no markdown fences.
 - Extract at most 8 claims, most load-bearing first.`;
 
+// Legal-suffix normalization so "Zura Bio Limited" and "Zura Bio" share
+// update slots. Aliases are deterministic and visible, not model-chosen.
+export function normalizeSubject(subject: string): string {
+  return subject
+    .trim()
+    .toLowerCase()
+    .replace(/[.,]/g, "")
+    .replace(/\s+(ltd|limited|inc|incorporated|corp|corporation|llc|plc|sa|nv)$/u, "")
+    .replace(/\s+/g, " ");
+}
+
 export interface CandidateClaim {
   subject: string;
   predicate: string;
@@ -69,7 +80,7 @@ export function candidatesToClaims(
     }
     const span: EvidenceSpan = { locatorType: "char", quote: c.quote, quoteSha256: sha256(c.quote) };
     const asOf = c.date && /^\d{4}-\d{2}-\d{2}/.test(c.date) ? c.date.slice(0, 10) : doc.ref.retrievedAt.slice(0, 10);
-    const subject = c.subject.trim().toLowerCase();
+    const subject = normalizeSubject(c.subject);
     const object = String(c.object).trim();
     // Descriptive predicates are per-document snapshots (two releases may
     // phrase the same mechanism differently); status predicates carry the

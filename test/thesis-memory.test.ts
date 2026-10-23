@@ -11,10 +11,12 @@ import { ThesisMemory } from "../src/memory/thesisMemory.ts";
 import { analyzeFixture } from "../src/orchestrator/analyze.ts";
 import { loadDocuments } from "../src/connectors/fixture.ts";
 import { assignFamilies } from "../src/claims/originFamily.ts";
+import { candidatesToClaims } from "../src/claims/llmExtract.ts";
 
 const FIXTURE = path.resolve(__dirname, "../fixtures/zura-2026-10-22");
 const OLDER = "ctgov-NCT06993610-older-RECRUITING-synthetic";
 const CURRENT = "ctgov-NCT06993610-2026-10-22";
+const RELEASE = "zurabio-tibushield-launch-2025-05-20";
 
 const T0 = new Date("2025-08-13T09:05:00Z").getTime(); // just after the simulated earlier retrieval
 const T1 = new Date("2026-10-22T17:35:00Z").getTime(); // just after today's real capture
@@ -182,8 +184,6 @@ describe("origin families (eval gold #10)", () => {
     "commentary-smallcapwire-zura-synthetic",
     "commentary-forumblog-zura-synthetic",
   ];
-  const RELEASE = "zurabio-tibushield-launch-2025-05-20";
-
   it("three pages quoting one release cluster into ONE origin family", () => {
     const docs = loadDocuments(FIXTURE);
     const fams = assignFamilies(docs);
@@ -205,5 +205,25 @@ describe("origin families (eval gold #10)", () => {
     expect(families.size).toBe(2);
     expect(families.has(RELEASE)).toBe(true);
     expect(families.has("pubmed-tibulizumab-efetch-2026-10-22")).toBe(true);
+  });
+});
+
+describe("subject alias normalization", () => {
+  it("'Zura Bio Limited' and 'Zura Bio' share one update slot", () => {
+    const doc = loadDocuments(FIXTURE).find((d) => d.ref.documentId === RELEASE)!;
+    const a = candidatesToClaims(
+      [{ subject: "Zura Bio", predicate: "cash_runway", object: "through 2027", modality: "estimated", quote: "TibuSHIELD has launched" }],
+      doc
+    ).claims;
+    const b = candidatesToClaims(
+      [{ subject: "Zura Bio Limited", predicate: "cash_runway", object: "through 2028", modality: "estimated", quote: "TibuSHIELD has launched" }],
+      doc
+    ).claims;
+    expect(a[0].slotKey).toBe(b[0].slotKey);
+    expect(a[0].subject).toBe("zura bio");
+    const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
+    mem.recordClaim(a[0]);
+    const r = mem.recordClaim(b[0]);
+    expect(r.action).toBe("updated");
   });
 });
