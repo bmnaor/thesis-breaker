@@ -8,7 +8,7 @@ The agent takes a biotech ticker and an investment thesis, pulls primary sources
 
 ```bash
 npm install
-npm test                 # 23 tests: engine smoke + integration + origin families
+npm test                 # 24 tests: engine smoke + integration + origin families + alias normalization
 npm run conformance      # Meterless H-MEM conformance suite (13/13)
 npm run demo             # two-phase ZURA run: update vs contradiction, live
 npx tsx src/cli.ts recall "TibuSHIELD enrollment"   # hybrid memory recall
