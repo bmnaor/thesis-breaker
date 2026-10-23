@@ -1,5 +1,5 @@
-# DRAFT - HackOS submission text (for Barak's review only - DO NOT SUBMIT
-# without his explicit approval; creating a submission may lock the team)
+# FINAL REVIEW COPY - HackOS submission text (for Barak's review only -
+# DO NOT SUBMIT without his explicit approval; creating a submission locks the team)
 
 Project name: Thesis Breaker
 Tagline: Turns a market thesis into claims, evidence, contradictions, and the
@@ -43,4 +43,12 @@ passing test - is met by the vendored H-MEM integration (conformance
 organizer update is the governing statement we rely on.
 
 Repo: https://github.com/bmnaor/thesis-breaker
-Demo video: (2:14 captioned walkthrough of captured outputs - see docs/demo-script.md; review pending before any upload)
+
+Presentation assets (pairing for Barak's review - nothing uploaded):
+- Deck: Barak's 11-slide NotebookLM deck (his preferred version, as-is).
+- Concept video (70s, landscape): the concept narrative animation - a
+  stylized CONCEPT ILLUSTRATION of the pipeline, not live system output.
+  It is labeled as such wherever it appears.
+- Demo video (2:14): captioned walkthrough of the real, working system on
+  the ZURA case - captured terminal and dashboard output. This is the
+  working-system proof.
