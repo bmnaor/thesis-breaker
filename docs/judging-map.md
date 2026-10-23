@@ -38,10 +38,13 @@ Sponsor tech 10.
 - Live segment proves real inference + verifier rejecting bad quotes.
 
 ## UX (10)
-- CLI today: analyze / demo / brief / recall / audit, sample outputs committed.
+- CLI: analyze / demo / brief / dashboard / recall / audit, sample outputs committed.
+- Static dashboard: `npx tsx src/cli.ts dashboard` renders the brief + run report
+  to one self-contained HTML file (no server, no build): thesis, verified claims,
+  updates vs contradictions, falsifiers, unknowns, monitoring, sources with
+  synthetic flags, PARTIAL banner, lineage chips on every claim.
 - PARTIAL semantics: failed connectors degrade honestly, never invent certainty.
-- Dashboard wireframe specced (docs/spec/03-demo-ui-repo.md) as next slice.
-- Every brief sentence is clickable-to-lineage via memory ids (`audit mem-N`).
+- Every brief sentence carries memory ids resolvable via `audit mem-N`.
 
 ## Sponsor tech (10)
 - Nebius Token Factory: live extraction (Qwen3-30B) + Nemotron judge,

@@ -45,13 +45,18 @@ deterministic verifier rejects any quote not verbatim in the stored bytes
 proposes, the engine disposes. Model-call ledger in logs/ records model id,
 latency, prompt version for every call.
 
-**2:15-2:40 - Technical proof.** `npm run conformance` - Meterless's own
+**2:15-2:25 - Dashboard.** `npx tsx src/cli.ts dashboard` then open the file:
+the same brief as a visual dashboard - falsifiers in red, PARTIAL banner naming
+the skipped connectors, synthetic sources flagged, every claim carrying its
+mem-N lineage chip.
+
+**2:25-2:50 - Technical proof.** `npm run conformance` - Meterless's own
 H-MEM conformance suite, 13/13 against the vendored engine (nothing
 re-implemented). `npm test` - 24/24. Subject alias normalization:
 "Zura Bio Limited" and "Zura Bio" share one update slot. Dockerfile is
 self-testing. Public repo, one-command run.
 
-**2:40-3:00 - Close.** "It doesn't tell you what to buy. It tells you what
+**2:50-3:00 - Close.** "It doesn't tell you what to buy. It tells you what
 your thesis stands on - and what would break it."
 
 ## Honesty notes (must stay in the video)
