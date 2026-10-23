@@ -5,6 +5,7 @@
 
 import type { NebiusClient } from "../models/nebius.ts";
 import type { DomainClaim, EvidenceSpan, Predicate } from "./types.ts";
+import { claimScope } from "./types.ts";
 import { SOURCE_PRIOR } from "./types.ts";
 import { sha256, type FrozenDocument } from "../connectors/fixture.ts";
 
@@ -86,9 +87,13 @@ export function candidatesToClaims(
     // phrase the same mechanism differently); status predicates carry the
     // update/supersede semantics.
     const DESCRIPTIVE = ["mechanism_targets", "endpoint_definition", "management_statement"];
+    // Update slots match on entity + predicate + trial/indication scope, so
+    // parallel trials never merge (e.g. TibuSHIELD HS vs TibuSURE SSc) while
+    // same-scope guidance updates still supersede (topline Q3 -> Q4 2026).
+    const scope = claimScope(`${object} ${c.quote}`);
     const slotKey = DESCRIPTIVE.includes(c.predicate)
       ? `${subject}|${c.predicate}|${doc.ref.documentId}`
-      : `${subject}|${c.predicate}`;
+      : `${subject}|${c.predicate}${scope ? `|${scope}` : ""}`;
     claims.push({
       claimKey: `${subject}|${c.predicate}|${object.toLowerCase()}|${doc.ref.documentId}`,
       slotKey,

@@ -262,3 +262,58 @@ describe("static dashboard", () => {
     expect(html).toContain("PARTIAL");
   });
 });
+
+describe("trial/indication-scoped update slots", () => {
+  it("HS and systemic-sclerosis mechanism claims are independent facts, never supersedes", async () => {
+    const { extractIssuerReleaseClaims } = await import("../src/claims/irExtract.ts");
+    const docs = loadDocuments(FIXTURE);
+    const hs = docs.find((d) => d.ref.documentId === "zurabio-tibushield-launch-2025-05-20")!;
+    const ssc = docs.find((d) => d.ref.documentId === "zurabio-exceeds-enrollment-2026-06-29")!;
+    const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
+    const a = extractIssuerReleaseClaims(hs, "tibulizumab", "TibuSHIELD").find((c) => c.predicate === "mechanism_targets")!;
+    const b = extractIssuerReleaseClaims(ssc, "tibulizumab", "TibuSHIELD").find((c) => c.predicate === "mechanism_targets")!;
+    expect(a.slotKey).not.toBe(b.slotKey);
+    const r1 = mem.recordClaim(a);
+    const r2 = mem.recordClaim(b);
+    expect(r1.action).toBe("created");
+    expect(r2.action).toBe("created"); // parallel trials preserved, not merged
+  });
+  it("same-scope guidance supersedes; different-scope guidance stays independent", () => {
+    const doc = loadDocuments(FIXTURE).find((d) => d.ref.documentId === "zurabio-exceeds-enrollment-2026-06-29")!;
+    const qHS = "TibuSHIELD has completed enrollment, exceeding enrollment target with 247 participants randomized in HS; topline data expected Q4 2026";
+    const qSSc = "TibuSURE has exceeded the 80 participant enrollment target in SSc and remains on track to complete enrollment in early July; topline data expected H1 2027";
+    const older = candidatesToClaims(
+      [{ subject: "Zura Bio", predicate: "guidance_event_date", object: "topline Q3 2026", modality: "estimated", quote: qHS }], doc
+    ).claims;
+    const newer = candidatesToClaims(
+      [{ subject: "Zura Bio", predicate: "guidance_event_date", object: "topline Q4 2026", modality: "estimated", quote: qHS }], doc
+    ).claims;
+    const otherTrial = candidatesToClaims(
+      [{ subject: "Zura Bio", predicate: "guidance_event_date", object: "TibuSURE topline H1 2027", modality: "estimated", quote: qSSc }], doc
+    ).claims;
+    expect(older.length).toBe(1);
+    expect(newer.length).toBe(1);
+    expect(otherTrial.length).toBe(1);
+    const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
+    mem.recordClaim(older[0]);
+    expect(mem.recordClaim(newer[0]).action).toBe("updated");
+    expect(mem.recordClaim(otherTrial[0]).action).toBe("created");
+  });
+});
+
+describe("brief semantic hygiene", () => {
+  it("unknowns come from the live graph and carry no stale connector labels; efficacy is flagged unproven", async () => {
+    const { composeBrief } = await import("../src/brief/compose.ts");
+    const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
+    await analyzeFixture(FIXTURE, mem, {});
+    const brief = composeBrief(mem, "ZURA", "2026-10-23T00:00:00Z");
+    expect(brief.efficacyProven).toBe(false);
+    const blob = brief.unknowns.join(" ");
+    expect(blob).not.toMatch(/not yet in the fixture|connector not built/i);
+    expect(blob).not.toMatch(/mechanism/i); // mechanism claims exist in the graph
+    expect(blob).toMatch(/UNPROVEN/);
+    // parallel-trial mechanism claims must both survive: no HS/SSc supersedes edge
+    const bad = brief.updates.filter((u) => /systemic sclerosis/i.test(u.text) && /hidradenitis/i.test(u.text));
+    expect(bad.length).toBe(0);
+  });
+});

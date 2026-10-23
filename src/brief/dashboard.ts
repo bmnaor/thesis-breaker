@@ -50,7 +50,7 @@ export function renderDashboard(b: Brief, report?: RunReport): string {
 <header><h1>THESIS BREAKER</h1><span class="badge">${esc(b.symbol)}</span><span class="badge">${mode}</span><span>as of ${esc(b.asOf)}</span></header>
 ${partial ? `<main><section class="partial"><h2>PARTIAL - degraded run, nothing invented</h2><ul>${partialDetail.map((d) => `<li>${esc(d)}</li>`).join("")}</ul></section></main>` : ""}
 <main>
- <section class="thesis"><h2>Thesis under test</h2>${esc(b.thesis)}</section>
+ <section class="thesis"><h2>Thesis under test (hypothesis)</h2>${esc(b.thesis)}<br><span class="badge" style="margin-top:8px;display:inline-block">${b.efficacyProven ? "EFFICACY SUPPORTED BY REPORTED RESULT" : "HYPOTHESIS - EFFICACY UNPROVEN (no reported result in graph)"}</span></section>
  <section><h2>What is actually known (verified claims)</h2><ul>${lines(b.supporting, "support")}</ul></section>
  <section><h2>What changed (updates, not contradictions)</h2><ul>${lines(b.updates, "update")}</ul></section>
  <section><h2>What would break the thesis</h2><ul>${lines(b.falsifiers, "falsifier")}</ul></section>

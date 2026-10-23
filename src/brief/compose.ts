@@ -15,6 +15,9 @@ export interface Brief {
   asOf: string;
   symbol: string;
   thesis: string;
+  // False while the graph holds no reported_result claim: the thesis's
+  // efficacy leg is a hypothesis under test, not an established finding.
+  efficacyProven: boolean;
   supporting: BriefLine[];
   updates: BriefLine[];
   unknowns: string[];
@@ -81,11 +84,23 @@ export function composeBrief(mem: ThesisMemory, symbol: string, runAt: string): 
     });
   }
 
-  const unknowns = [
-    "Topline efficacy result: no reported_result claim in the graph (registry shows completion, not outcomes).",
-    "Cash runway statement: issuer guidance not in the fixture; filed cash is a fact, runway is a forward-looking claim still to source.",
-    "Mechanism (dual IL-17A/BAFF blockade): issuer release not yet in the fixture; PubMed context connector not built yet.",
-  ];
+  // Unknowns are derived from the live graph, not hardcoded: a gap is listed
+  // only while no current claim of that kind exists.
+  const efficacyProven = latest(mem, "reported_result").length > 0;
+  const unknowns: string[] = [];
+  if (!efficacyProven) {
+    unknowns.push(
+      "Topline efficacy result: no reported_result claim in the graph (registry shows completion, not outcomes). The thesis's efficacy leg is currently UNPROVEN."
+    );
+  }
+  if (latest(mem, "cash_runway").length === 0) {
+    unknowns.push(
+      "Runway guidance: no cash_runway claim in the graph. Filed cash is a fact; forward guidance enters via the live issuer-release extraction path."
+    );
+  }
+  if (latest(mem, "mechanism_targets").length === 0) {
+    unknowns.push("Mechanism (dual IL-17A/BAFF blockade): no mechanism_targets claim in the graph.");
+  }
 
   const monitoring = [
     `ClinicalTrials.gov ${(status && tag(status, "subj:")) ?? "NCT06993610"}: status + history-of-changes (weekly).`,
@@ -105,6 +120,7 @@ export function composeBrief(mem: ThesisMemory, symbol: string, runAt: string): 
     asOf: runAt,
     symbol,
     thesis: ZURA_THESIS,
+    efficacyProven,
     supporting: [
       ...lines("mechanism_targets"),
       ...lines("guidance_event_date").filter((l) => /launch/i.test(l.text)),
@@ -125,7 +141,9 @@ export function renderBrief(b: Brief): string {
   const out: string[] = [];
   out.push(`# THESIS BREAKER - ${b.symbol} decision brief`);
   out.push(`as of ${b.asOf}`);
-  out.push(`\n## Thesis\n"${b.thesis}"`);
+  out.push(
+    `\n## Thesis (hypothesis under test${b.efficacyProven ? "" : " - efficacy UNPROVEN, no reported result in graph"})\n"${b.thesis}"`
+  );
   out.push(`\n## What is actually known (verified claims)`);
   for (const l of b.supporting) out.push(`- ${l.text}`);
   out.push(`\n## What changed (updates, not contradictions)`);

@@ -2,7 +2,7 @@
 // Issuer releases are interested sources: claims stay labeled issuer_release
 // and never raise an independence count on their own.
 
-import type { DomainClaim, EvidenceSpan } from "./types.ts";
+import { claimScope, type DomainClaim, type EvidenceSpan } from "./types.ts";
 import { SOURCE_PRIOR } from "./types.ts";
 import { sha256, type FrozenDocument } from "../connectors/fixture.ts";
 
@@ -27,7 +27,9 @@ export function extractIssuerReleaseClaims(doc: FrozenDocument, drug: string, st
     const targets = [...quote.matchAll(/\(([A-Z0-9-]{3,10})\)/g)].map((m) => m[1]);
     claims.push({
       claimKey: `${drug}|mechanism_targets|issuer|${targets.join("+").toLowerCase()}`,
-      slotKey: `${drug}|mechanism_targets|issuer`,
+      // Scope (trial/indication) is part of the update slot: the same drug's
+      // mechanism claims about different trials stay independent facts.
+      slotKey: `${drug}|mechanism_targets|issuer|${claimScope(quote)}`,
       subject: drug,
       predicate: "mechanism_targets",
       object: targets.join(" + "),

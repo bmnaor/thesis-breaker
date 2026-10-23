@@ -54,6 +54,21 @@ export interface SourceRef {
   synthetic: boolean;        // true for controlled counterfactual fixtures
 }
 
+// Trial/indication scope, detected deterministically from claim text. Claims
+// about different trials or indications are independent facts and must never
+// share an update slot: "first to evaluate in HS" and "first to evaluate in
+// systemic sclerosis" describe parallel trials, not newer/older versions.
+export function claimScope(text: string): string {
+  const scopes: string[] = [];
+  const nct = text.match(/NCT\d{8}/i);
+  if (nct) scopes.push(nct[0].toLowerCase());
+  if (/tibushield/i.test(text)) scopes.push("tibushield");
+  if (/tibusure/i.test(text)) scopes.push("tibusure");
+  if (/hidradenitis suppurativa/i.test(text)) scopes.push("hs");
+  if (/systemic sclerosis|scleroderma|\bssc\b/i.test(text)) scopes.push("ssc");
+  return [...new Set(scopes)].join("+");
+}
+
 export interface DomainClaim {
   claimKey: string;          // subject|predicate|normalized object (dedupe identity)
   slotKey: string;           // subject|predicate (update detection)
