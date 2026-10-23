@@ -1,0 +1,39 @@
+{
+  "project": "thesis-breaker",
+  "team": "Thesis Breaker",
+  "hackathons": [
+    "Open Agent 2026 (Track 2)",
+    "Nebius Global AI Hackathon"
+  ],
+  "engines": [
+    {
+      "name": "Meterless H-MEM",
+      "role": "memory engine: the claim graph is an H-MEM memory spine (claims as memories, dedupe for echoes, supersedes for updates, append-only trust ledger)",
+      "integration": "vendored from github.com/Meterless/Meterless engines/hmem/reference (Apache-2.0) at vendor/hmem; Meterless's own conformance suite at vendor/hmem-conformance passes 13/13 via npm run conformance",
+      "sample_mode": false
+    },
+    {
+      "name": "Nebius Token Factory",
+      "role": "live LLM inference: Qwen3-30B claim extraction and Nemotron relation judging, gated by a deterministic verbatim-quote verifier; every call logged in logs/model-ledger.jsonl",
+      "integration": "src/models/nebius.ts (OpenAI-compatible client, startup /models discovery guards against model churn), orchestrated by src/orchestrator/liveExtract.ts and liveJudge.ts; activated with --live or MODE=LIVE",
+      "sample_mode": false
+    },
+    {
+      "name": "Zetaris AI Data Gateway",
+      "role": "SQL evidence mart federating registry, filing and issuer sources behind one query interface",
+      "integration": "src/connectors/zetaris.ts; live path behind ZETARIS_BASE_URL/ZETARIS_API_KEY (local Docker gateway via tunnel); honest SAMPLE export is the default and provenance-tagged",
+      "sample_mode": true
+    },
+    {
+      "name": "Tavily",
+      "role": "capture-time extraction of issuer IR releases through WAF-blocked IR pages (frozen into the hash-manifested fixture)",
+      "integration": "used at fixture-capture time; no runtime dependency - frozen bytes verified via fixtures/zura-2026-10-22/manifest.json sha256",
+      "sample_mode": false
+    }
+  ],
+  "declarations": {
+    "pre_existing_work": "product spec and connector design in docs/spec/ predate the 22.10 build window and are declared in the submission",
+    "ai_assistance": "built with AI coding assistance; all model-proposed claims pass a deterministic verifier before entering the graph",
+    "synthetic_data": "fixture documents marked synthetic:true in fixtures/zura-2026-10-22/manifest.json are synthetic (older registry snapshot, 3 echo pages); all other fixture bytes are real captures from 2026-10-22"
+  }
+}
