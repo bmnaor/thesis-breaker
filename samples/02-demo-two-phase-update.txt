@@ -1,5 +1,5 @@
 Phase 1 - simulated earlier retrieval (synthetic older registry snapshot, labeled synthetic):
-run (SAMPLE) at 2026-10-22T17:42:03.877Z
+run (SAMPLE) at 2026-10-23T05:10:36.999Z
 documents: 1 | extracted: 5 | verified: 5 | rejected: 0
   [created] mem-1: NCT06993610 (Tibulizumab Skin Healing and Inflammation Evaluation for Lasting Defense) overall status is RECRUITING as of registry update 2025-08-12.
   [created] mem-2: NCT06993610 enrollment is 180 (estimated) as of registry update 2025-08-12.
@@ -9,7 +9,7 @@ documents: 1 | extracted: 5 | verified: 5 | rejected: 0
 memory spine: 5 memories, 5 ledger entries { create: 5 }
 
 Phase 2 - today's real capture (2026-10-22):
-run (SAMPLE) at 2026-10-22T17:42:03.913Z
+run (SAMPLE) at 2026-10-23T05:10:37.115Z
 documents: 3 | extracted: 17 | verified: 17 | rejected: 0
   [updated] mem-6: NCT06993610 (Tibulizumab Skin Healing and Inflammation Evaluation for Lasting Defense) overall status is ACTIVE_NOT_RECRUITING as of registry update 2026-10-19. (supersedes mem-1)
   [updated] mem-7: NCT06993610 enrollment is 247 (actual) as of registry update 2026-10-19. (supersedes mem-2)

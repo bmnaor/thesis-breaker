@@ -1,20 +1,20 @@
 [MEMORY CONTEXT]
 ## general
-- [LT] NCT06993610 enrollment is 180 (estimated) as of registry update 2025-08-12. <mem-7>
-- [LT] NCT06993610 lead sponsor is Zura Bio Inc as of registry update 2026-10-19. (entities: zura, bio, inc) <mem-5>
-- [LT] NCT06993610 primary completion date is 2026-09 (estimated) as of registry update 2025-08-12. <mem-8>
-- [LT] NCT06993610 is registered as PHASE2 as of registry update 2026-10-19. <mem-4>
-- [LT] NCT06993610 (Tibulizumab Skin Healing and Inflammation Evaluation for Lasting Defense) overall status is RECRUITING as of registry update 2025-08-12. (entities: tibulizumab, skin, healing, inflammation, evaluation, lasting, defense, recruiting) <mem-6>
+- [LT] NCT06993610 enrollment is 247 (actual) as of registry update 2026-10-19. <mem-7>
+- [LT] Zura Bio Ltd reported cash and cash equivalents of $154.5M as of 2025-06-30 (form 10-Q, filed 2025-08-14). (entities: zura, bio, ltd) <mem-15>
+- [LT] NCT06993610 primary completion date is 2026-09-18 (actual) as of registry update 2026-10-19. <mem-8>
+- [LT] NCT06993610 (Tibulizumab Skin Healing and Inflammation Evaluation for Lasting Defense) overall status is ACTIVE_NOT_RECRUITING as of registry update 2026-10-19. (entities: tibulizumab, skin, healing, inflammation, evaluation, lasting, defense) <mem-6>
+- [LT] NCT06993610 is registered as PHASE2 as of registry update 2025-08-12. <mem-4>
 [/MEMORY CONTEXT]
 
 trace: {
-  "retrievalReason": "hybrid ranking for \"NCT06993610 enrollment\" (domain: general)",
+  "retrievalReason": "hybrid ranking for \"TibuSHIELD enrollment\" (domain: general)",
   "strategy": "comprehensive",
   "scores": {
-    "mem-7": 0.3831,
-    "mem-5": 0.2869,
-    "mem-8": 0.2869,
-    "mem-4": 0.2862,
-    "mem-6": 0.2685
+    "mem-7": 0.2785,
+    "mem-15": 0.2348,
+    "mem-8": 0.19,
+    "mem-6": 0.19,
+    "mem-4": 0.19
   }
 }

@@ -1,10 +1,11 @@
 # THESIS BREAKER - ZURA decision brief
-as of 2026-10-22T17:49:00.774Z
+as of 2026-10-23T05:10:38.085Z
 
-## Thesis
+## Thesis (hypothesis under test - efficacy UNPROVEN, no reported result in graph)
 "Tibulizumab's dual IL-17A/BAFF blockade shows meaningful Phase-2 efficacy in hidradenitis suppurativa (topline Q4 2026), to be confirmed in systemic sclerosis (H1 2027)."
 
 ## What is actually known (verified claims)
+- Issuer states (2026-06-29): "TibuSURE is the first clinical trial designed to evaluate the dual inhibition of IL-17 and BAFF in diffuse cutaneous systemic sclerosis" <mem-24>
 - Issuer states (2025-05-20): "This study is the first to evaluate dual inhibition of B-cell activating factor (BAFF) and interleukin-17A (IL-17A) pathways in adults with moderate to severe hidradenitis suppurativa (HS)" <mem-22>
 - Peer-reviewed literature (MAbs, 2019, PMID 31181988) describes tibulizumab as targeting IL-17A and BAFF: "Development of tibulizumab, a tetravalent bispecific antibody targeting BAFF and IL-17A for the treatment of autoimmune disease.". <mem-21>
 - Issuer announced (2025-05-20): "Zura Bio Launches Global Phase 2 TibuSHIELD Study to Evaluate Tibulizumab in Adults with Hidradenitis Suppurativa". Announcement of a start is an event claim, not evidence of completion. <mem-23>
@@ -22,9 +23,8 @@ as of 2026-10-22T17:49:00.774Z
 - FALSIFIER: a protocol amendment that changes enrollment, endpoints, or population after status ACTIVE_NOT_RECRUITING would narrow the readout's scope. Watch: ClinicalTrials.gov history-of-changes for NCT06993610. <mem-1>
 
 ## Unknowns / data gaps
-- Topline efficacy result: no reported_result claim in the graph (registry shows completion, not outcomes).
-- Cash runway statement: issuer guidance not in the fixture; filed cash is a fact, runway is a forward-looking claim still to source.
-- Mechanism (dual IL-17A/BAFF blockade): issuer release not yet in the fixture; PubMed context connector not built yet.
+- Topline efficacy result: no reported_result claim in the graph (registry shows completion, not outcomes). The thesis's efficacy leg is currently UNPROVEN.
+- Runway guidance: no cash_runway claim in the graph. Filed cash is a fact; forward guidance enters via the live issuer-release extraction path.
 
 ## Monitoring checklist
 - [ ] ClinicalTrials.gov NCT06993610: status + history-of-changes (weekly).
@@ -38,4 +38,5 @@ as of 2026-10-22T17:49:00.774Z
 - https://data.sec.gov/api/xbrl/companyfacts/CIK0001855644.json (retrieved 2026-10-22T17:37:00Z)
 - https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=33123125,31181988&rettype=abstract&retmode=xml (retrieved 2026-10-22T17:40:00Z)
 - https://investors.zurabio.com/news-releases/news-release-details/zura-bio-launches-global-phase-2-tibushield-study-evaluate (retrieved 2026-10-22T17:41:00Z)
+- https://investors.zurabio.com/news-releases/news-release-details/zura-bio-exceeds-enrollment-target-both-hidradenitis-suppurativa (retrieved 2026-10-22T20:18:00Z)
 

@@ -1,5 +1,5 @@
 {
-  "runAt": "2026-10-23T05:06:48.517Z",
+  "runAt": "2026-10-23T05:10:38.085Z",
   "fixtureDir": "fixtures/zura-2026-10-22",
   "mode": "SAMPLE",
   "documents": 11,
@@ -138,18 +138,17 @@
       "memoryId": "mem-23"
     },
     {
-      "action": "updated",
+      "action": "created",
       "sentence": "Issuer states (2026-06-29): \"TibuSURE is the first clinical trial designed to evaluate the dual inhibition of IL-17 and BAFF in diffuse cutaneous systemic sclerosis\"",
-      "memoryId": "mem-24",
-      "supersedesMemoryId": "mem-22"
+      "memoryId": "mem-24"
     }
   ],
   "manifest": {
     "memories": 24,
-    "ledgerEntries": 28,
+    "ledgerEntries": 27,
     "byAction": {
       "create": 24,
-      "update": 4
+      "update": 3
     }
   }
 }
