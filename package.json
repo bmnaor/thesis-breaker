@@ -10,7 +10,7 @@
     "recall": "tsx src/cli.ts recall",
     "audit": "tsx src/cli.ts audit",
     "test": "vitest run",
-    "conformance": "tsx vendor/hmem-conformance/runner.ts",
+    "conformance": "HMEM_IMPL=vendor/hmem/src/index.ts tsx vendor/hmem-conformance/runner.ts",
     "demo": "tsx src/cli.ts demo"
   },
   "devDependencies": {
