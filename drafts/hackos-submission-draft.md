@@ -9,12 +9,14 @@ Track: Track 2 (approved by Barak; the HackOS submission itself is not yet creat
 
 Description:
 Thesis Breaker is an evidence-backed market catalyst agent. Give it a ticker
-and a thesis; it pulls primary sources (ClinicalTrials.gov, SEC EDGAR,
-issuer IR, PubMed), separates real evidence from echoed narrative
-("10 links, 1 source"), and explains why the thesis holds or breaks. It
-never tells you what to buy. The current prototype is built and
-demonstrated end-to-end on one real case (Zura Bio / tibulizumab); it is
-not yet a general any-ticker service.
+and a thesis; by design it pulls primary sources, separates real evidence
+from echoed narrative ("10 links, 1 source"), and explains why the thesis
+holds or breaks. It never tells you what to buy. The current prototype is
+built and demonstrated end-to-end on one real case (Zura Bio /
+tibulizumab); it is not yet a general any-ticker service. In the
+demonstrated run it ingested real 2026-10-22 captures of
+ClinicalTrials.gov, SEC EDGAR, Zura Bio issuer releases, and a PubMed
+efetch for tibulizumab.
 
 Claims are memories on a vendored Meterless H-MEM spine: dedupe collapses
 echoes, supersession models registry updates, and an append-only trust ledger
@@ -31,16 +33,18 @@ verdict on results (topline is planned for Q4 2026).
 
 Built with: TypeScript, Meterless H-MEM (Apache-2.0, vendored, conformance
 13/13), Nebius Token Factory, Tavily, Zetaris (evidence-mart connector),
-Docker. AI-assisted build; spec drafted before the hackathon window;
-synthetic fixture documents are labeled.
+Docker. The Zetaris check executed nine inline sample rows through the
+live Data Gateway during the build; it does not demonstrate federation
+over an external stored dataset. AI-assisted build; spec drafted before
+the hackathon window; synthetic fixture documents are labeled.
 
 Development tools (per rules 6.4): built with AI coding assistance
 (Claude Code). Per the organizers' 22 Oct update (#announcement channel +
 updated onboarding guide), Cursor became optional for this event; the
 unchanged requirement - one Meterless engine in a working feature with a
 passing test - is met by the vendored H-MEM integration (conformance
-13/13). Note: the static rules-page text still mentions Cursor; the
-organizer update is the governing statement we rely on.
+13/13). Note: the static rules-page text still mentions Cursor and has not been
+updated; we follow the organizers' 22 Oct update for this submission.
 
 Repo: https://github.com/bmnaor/thesis-breaker
 
