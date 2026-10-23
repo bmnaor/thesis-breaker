@@ -1,0 +1,155 @@
+{
+  "runAt": "2026-10-23T05:07:07.261Z",
+  "fixtureDir": "fixtures/zura-2026-10-22",
+  "mode": "SAMPLE",
+  "documents": 11,
+  "extracted": 26,
+  "verified": 26,
+  "rejected": [],
+  "skipped": [
+    "Synthetic commentary (commentary): connector not implemented in this slice yet",
+    "Synthetic commentary (commentary): connector not implemented in this slice yet",
+    "Synthetic commentary (commentary): connector not implemented in this slice yet"
+  ],
+  "results": [
+    {
+      "action": "created",
+      "sentence": "NCT06993610 (Tibulizumab Skin Healing and Inflammation Evaluation for Lasting Defense) overall status is ACTIVE_NOT_RECRUITING as of registry update 2026-10-19.",
+      "memoryId": "mem-1"
+    },
+    {
+      "action": "created",
+      "sentence": "NCT06993610 enrollment is 247 (actual) as of registry update 2026-10-19.",
+      "memoryId": "mem-2"
+    },
+    {
+      "action": "created",
+      "sentence": "NCT06993610 primary completion date is 2026-09-18 (actual) as of registry update 2026-10-19.",
+      "memoryId": "mem-3"
+    },
+    {
+      "action": "created",
+      "sentence": "NCT06993610 is registered as PHASE2 as of registry update 2026-10-19.",
+      "memoryId": "mem-4"
+    },
+    {
+      "action": "created",
+      "sentence": "NCT06993610 lead sponsor is Zura Bio Inc as of registry update 2026-10-19.",
+      "memoryId": "mem-5"
+    },
+    {
+      "action": "created",
+      "sentence": "NCT06993610 (Tibulizumab Skin Healing and Inflammation Evaluation for Lasting Defense) overall status is RECRUITING as of registry update 2025-08-12.",
+      "memoryId": "mem-6"
+    },
+    {
+      "action": "created",
+      "sentence": "NCT06993610 enrollment is 180 (estimated) as of registry update 2025-08-12.",
+      "memoryId": "mem-7"
+    },
+    {
+      "action": "created",
+      "sentence": "NCT06993610 primary completion date is 2026-09 (estimated) as of registry update 2025-08-12.",
+      "memoryId": "mem-8"
+    },
+    {
+      "action": "duplicate",
+      "sentence": "NCT06993610 is registered as PHASE2 as of registry update 2025-08-12.",
+      "memoryId": "mem-4"
+    },
+    {
+      "action": "duplicate",
+      "sentence": "NCT06993610 lead sponsor is Zura Bio Inc as of registry update 2025-08-12.",
+      "memoryId": "mem-5"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd filed form 8-K on 2026-06-18 (report period 2026-06-17) (accession 0001104659-26-075826).",
+      "memoryId": "mem-9"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd filed form 8-K on 2026-07-01 (report period 2026-07-01) (accession 0001104659-26-079538).",
+      "memoryId": "mem-10"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd filed form 8-K on 2026-08-11 (report period 2026-08-11) (accession 0001855644-26-000007).",
+      "memoryId": "mem-11"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd filed form 10-Q on 2026-08-11 (report period 2026-06-30) (accession 0001855644-26-000006).",
+      "memoryId": "mem-12"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd filed form 8-K on 2026-08-17 (report period 2026-08-17) (accession 0001104659-26-097526).",
+      "memoryId": "mem-13"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd reported cash and cash equivalents of $170.6M as of 2025-03-31 (form 10-Q, filed 2025-05-08).",
+      "memoryId": "mem-14"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd reported cash and cash equivalents of $154.5M as of 2025-06-30 (form 10-Q, filed 2025-08-14).",
+      "memoryId": "mem-15"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd reported cash and cash equivalents of $139.0M as of 2025-09-30 (form 10-Q, filed 2025-11-13).",
+      "memoryId": "mem-16"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd reported cash and cash equivalents of $176.5M as of 2024-12-31 (form 10-K, filed 2026-03-19).",
+      "memoryId": "mem-17"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd reported cash and cash equivalents of $225.6M as of 2026-03-31 (form 10-Q, filed 2026-05-07).",
+      "memoryId": "mem-18"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd reported cash and cash equivalents of $109.4M as of 2025-12-31 (form 10-Q, filed 2026-08-11).",
+      "memoryId": "mem-19"
+    },
+    {
+      "action": "created",
+      "sentence": "Zura Bio Ltd reported cash and cash equivalents of $205.1M as of 2026-06-30 (form 10-Q, filed 2026-08-11).",
+      "memoryId": "mem-20"
+    },
+    {
+      "action": "created",
+      "sentence": "Peer-reviewed literature (MAbs, 2019, PMID 31181988) describes tibulizumab as targeting IL-17A and BAFF: \"Development of tibulizumab, a tetravalent bispecific antibody targeting BAFF and IL-17A for the treatment of autoimmune disease.\".",
+      "memoryId": "mem-21"
+    },
+    {
+      "action": "created",
+      "sentence": "Issuer states (2025-05-20): \"This study is the first to evaluate dual inhibition of B-cell activating factor (BAFF) and interleukin-17A (IL-17A) pathways in adults with moderate to severe hidradenitis suppurativa (HS)\"",
+      "memoryId": "mem-22"
+    },
+    {
+      "action": "created",
+      "sentence": "Issuer announced (2025-05-20): \"Zura Bio Launches Global Phase 2 TibuSHIELD Study to Evaluate Tibulizumab in Adults with Hidradenitis Suppurativa\". Announcement of a start is an event claim, not evidence of completion.",
+      "memoryId": "mem-23"
+    },
+    {
+      "action": "updated",
+      "sentence": "Issuer states (2026-06-29): \"TibuSURE is the first clinical trial designed to evaluate the dual inhibition of IL-17 and BAFF in diffuse cutaneous systemic sclerosis\"",
+      "memoryId": "mem-24",
+      "supersedesMemoryId": "mem-22"
+    }
+  ],
+  "manifest": {
+    "memories": 24,
+    "ledgerEntries": 28,
+    "byAction": {
+      "create": 24,
+      "update": 4
+    }
+  }
+}

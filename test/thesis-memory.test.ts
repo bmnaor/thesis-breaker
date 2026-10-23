@@ -245,3 +245,20 @@ describe("zetaris evidence-mart connector", () => {
     ).rejects.toThrow();
   });
 });
+
+describe("static dashboard", () => {
+  it("renders thesis, falsifiers, sources and lineage chips into self-contained HTML", async () => {
+    const { renderDashboard } = await import("../src/brief/dashboard.ts");
+    const { composeBrief } = await import("../src/brief/compose.ts");
+    const mem = new ThesisMemory({ persistDir: dir, clock: () => T1 });
+    const report = await analyzeFixture(FIXTURE, mem, {});
+    const brief = composeBrief(mem, "ZURA", report.runAt);
+    const html = renderDashboard(brief, report);
+    expect(html).toContain("Thesis under test");
+    expect(html).toContain("What would break the thesis");
+    expect(html).toContain("mem-");
+    expect(html).toContain("synthetic");
+    expect(html).not.toContain("http://cdn");
+    expect(html).toContain("PARTIAL");
+  });
+});

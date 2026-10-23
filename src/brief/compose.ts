@@ -96,7 +96,7 @@ export function composeBrief(mem: ThesisMemory, symbol: string, runAt: string): 
 
   const sources = [...new Map(all.map((m) => [m.source, m])).values()].map((m) => ({
     url: m.source,
-    publisher: m.provenance.label.split(" ")[0],
+    publisher: tag(m, "publisher:") ?? m.provenance.label.split(" ")[0],
     retrievedAt: m.tags.find((t) => t.startsWith("retrieved:"))?.slice(10) ?? new Date(m.provenance.learnedAt).toISOString(),
     synthetic: m.tags.includes("synthetic"),
   }));

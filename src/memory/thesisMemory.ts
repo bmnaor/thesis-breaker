@@ -79,6 +79,7 @@ export class ThesisMemory {
         `obj:${claim.object}`,
         `mod:${claim.modality}`,
         `asof:${claim.asOf}`,
+        `publisher:${claim.source.publisher}`,
         `retrieved:${claim.source.retrievedAt}`,
         ...(claim.source.synthetic ? ["synthetic"] : []),
       ],
