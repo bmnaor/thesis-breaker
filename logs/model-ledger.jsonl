@@ -1,0 +1,3 @@
+{"at":"2026-10-23T09:18:18.713Z","model":"Qwen/Qwen3-30B-A3B-Instruct-2507","promptVersion":"extract-v1","latencyMs":3749,"promptTokens":3004,"completionTokens":680,"purpose":"claim-extraction:zurabio-tibushield-launch-2025-05-20"}
+{"at":"2026-10-23T09:18:21.980Z","model":"Qwen/Qwen3-30B-A3B-Instruct-2507","promptVersion":"extract-v1","latencyMs":3255,"promptTokens":2112,"completionTokens":692,"purpose":"claim-extraction:zurabio-outlook-2026-01-12"}
+{"at":"2026-10-23T09:18:24.863Z","model":"Qwen/Qwen3-30B-A3B-Instruct-2507","promptVersion":"extract-v1","latencyMs":2871,"promptTokens":2620,"completionTokens":581,"purpose":"claim-extraction:zurabio-exceeds-enrollment-2026-06-29"}

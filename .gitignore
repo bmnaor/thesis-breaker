@@ -2,5 +2,6 @@ node_modules/
 dist/
 .env
 logs/*.jsonl
+!logs/model-ledger.jsonl
 !.gitkeep
 .thesis-breaker/

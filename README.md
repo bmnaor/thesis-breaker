@@ -65,7 +65,7 @@ vendored engine (`vendor/hmem-conformance`): **13/13 checks pass.**
   collapse into one family; independence counts families, not pages
   (`src/claims/originFamily.ts`, eval gold #10 proven on synthetic echo pages).
 - Nebius Token Factory client with startup model discovery and a JSONL model
-  ledger (model, latency, tokens, prompt version; never keys) - `src/models/nebius.ts`.
+  ledger (model, latency, tokens, prompt version; never keys) - `src/models/nebius.ts`, committed example `logs/model-ledger.jsonl`.
 - Nemotron claim-relation judge (`src/claims/judge.ts`); verified live:
   `NEBIUS_API_KEY=... npx tsx src/orchestrator/liveJudge.ts` classifies the
   RECRUITING -> ACTIVE_NOT_RECRUITING pair as an update (eval gold #9).

@@ -48,9 +48,11 @@ Sponsor tech 10.
 
 ## Sponsor tech (10)
 - Nebius Token Factory: live extraction (Qwen3-30B) + Nemotron judge,
-  live-verified; model-call ledger proves real usage (eval gold #9).
-- Zetaris: SQL evidence-mart connector slice planned against local gateway;
-  blocked on the PC-side tunnel window. SAMPLE-mode fallback flagged honestly.
+  live-verified; committed model-call ledger proves real usage (`logs/model-ledger.jsonl`, never keys; eval gold #9).
+- Zetaris: SQL evidence-mart connector live-verified 2026-10-23 against the
+  local gateway (9/9 rows through api -> driver -> Spark; raw capture
+  `samples/06-zetaris-live.txt`; inline VALUES executed by the gateway, zero
+  mutation). SAMPLE export remains the provenance-tagged default.
 - Meterless H-MEM: the engine, vendored with conformance proof.
 
 ## Declared honestly
