@@ -227,3 +227,21 @@ describe("subject alias normalization", () => {
     expect(r.action).toBe("updated");
   });
 });
+
+describe("zetaris evidence-mart connector", () => {
+  it("SAMPLE mode returns shaped mart rows with honest provenance", async () => {
+    const { queryEvidenceMart } = await import("../src/connectors/zetaris.ts");
+    const r = await queryEvidenceMart({ fixtureDir: FIXTURE });
+    expect(r.provenance.mode).toBe("SAMPLE");
+    expect(r.rows.length).toBeGreaterThan(0);
+    const status = r.rows.find((x) => x.attribute === "overall_status");
+    expect(status?.value).toBe("ACTIVE_NOT_RECRUITING");
+    expect(status?.synthetic).toBe(false);
+  });
+  it("LIVE mode surfaces gateway errors instead of fabricating rows", async () => {
+    const { queryEvidenceMart } = await import("../src/connectors/zetaris.ts");
+    await expect(
+      queryEvidenceMart({ fixtureDir: FIXTURE, live: { baseUrl: "http://127.0.0.1:1", apiKey: "x" } })
+    ).rejects.toThrow();
+  });
+});

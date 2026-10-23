@@ -1,0 +1,11 @@
+[
+  {"sourceSystem":"ctgov","tableName":"trials","key":"NCT06993610","attribute":"overall_status","value":"ACTIVE_NOT_RECRUITING","asOf":"2026-10-19","retrievedAt":"2026-10-22","synthetic":false},
+  {"sourceSystem":"ctgov","tableName":"trials","key":"NCT06993610","attribute":"enrollment_actual","value":"247","asOf":"2026-10-19","retrievedAt":"2026-10-22","synthetic":false},
+  {"sourceSystem":"ctgov","tableName":"trials","key":"NCT06993610","attribute":"primary_completion_date","value":"2026-09-18","asOf":"2026-10-19","retrievedAt":"2026-10-22","synthetic":false},
+  {"sourceSystem":"ctgov","tableName":"trials","key":"NCT06993610","attribute":"phase","value":"PHASE2","asOf":"2026-10-19","retrievedAt":"2026-10-22","synthetic":false},
+  {"sourceSystem":"edgar","tableName":"company_facts","key":"CIK1855644","attribute":"cash_and_cash_equivalents_usd","value":"205100000","asOf":"2026-06-30","retrievedAt":"2026-10-22","synthetic":false},
+  {"sourceSystem":"edgar","tableName":"submissions","key":"CIK1855644","attribute":"latest_10q_filed","value":"2026-08-11","asOf":"2026-08-11","retrievedAt":"2026-10-22","synthetic":false},
+  {"sourceSystem":"issuer_ir","tableName":"releases","key":"ZURA-IR","attribute":"topline_expectation","value":"Q4 2026","asOf":"2026-06-24","retrievedAt":"2026-10-22","synthetic":false},
+  {"sourceSystem":"issuer_ir","tableName":"releases","key":"ZURA-IR","attribute":"runway_guidance","value":"through at least end of 2028","asOf":"2026-06-24","retrievedAt":"2026-10-22","synthetic":false},
+  {"sourceSystem":"issuer_ir","tableName":"releases","key":"ZURA-IR","attribute":"enrollment_complete_randomized","value":"247","asOf":"2026-06-24","retrievedAt":"2026-10-22","synthetic":false}
+]
