@@ -24,12 +24,12 @@ semantic-fix pass and is superseded.
 | 1:01-1:13 | Recall + echo collapse (one origin family) | samples/03 | SAMPLE |
 | 1:13-1:27 | Live extraction: 45 verified / 2 verbatim-verifier rejections | samples/05 | LIVE - Nebius |
 | 1:27-1:43 | Dashboard panels (rendered from graph state, degraded-run honest) | `dashboard` CLI output | SAMPLE |
-| 1:43-1:54 | Zetaris federated SQL, inline VALUES, zero mutation | samples/06 | LIVE - Zetaris |
+| 1:43-1:54 | Zetaris gateway SQL on a nine-row inline VALUES evidence relation, zero mutation | samples/06 | LIVE - Zetaris |
 | 1:54-2:06 | Reproducibility: conformance 13/13, tests 30/30, Docker build | fresh runs | - |
 | 2:06-2:14 | Close: "It doesn't tell you what to buy..." + repo URL | title card | - |
 
 Fixture note: frozen fixture `fixtures/zura-2026-10-22/` (real
 ClinicalTrials.gov + SEC EDGAR captures from 2026-10-22; synthetic documents
 labeled in the manifest). Live beats use Nebius Token Factory and the Zetaris
-evidence mart (live path verified 2026-10-23 over a since-closed secure
-tunnel).
+evidence mart (live path verified 2026-10-23 against a local gateway; no live
+external-source federation is demonstrated in this slice).

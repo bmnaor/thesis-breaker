@@ -5,7 +5,7 @@ Project name: Thesis Breaker
 Tagline: Turns a market thesis into claims, evidence, contradictions, and the
 explicit tests that would break it.
 
-Track: (Track 2 approved in form, not yet selected - Barak to confirm)
+Track: Track 2 (approved by Barak; the HackOS submission itself is not yet created - track selection happens at creation, awaiting his go)
 
 Description:
 Thesis Breaker is an evidence-backed market catalyst agent. Give it a ticker
@@ -22,9 +22,10 @@ deterministic verbatim-quote verifier - hallucinated quotes are rejected.
 Every falsifier names the source to watch.
 
 Demo case: Zura Bio (ZURA) / tibulizumab, built from real 2026-10-22
-registry and EDGAR captures. The engine catches that the HS Phase-2 primary
-completion date has passed with no topline disclosure - the falsifier a
-headline-reader misses.
+registry and EDGAR captures. Within those captured sources and the claim
+graph, the HS Phase-2 primary completion date has passed with no topline
+disclosure among them - a watch item the engine keeps checking, not a
+verdict on results (topline is planned for Q4 2026).
 
 Built with: TypeScript, Meterless H-MEM (Apache-2.0, vendored, conformance
 13/13), Nebius Token Factory, Tavily, Zetaris (evidence-mart connector),
